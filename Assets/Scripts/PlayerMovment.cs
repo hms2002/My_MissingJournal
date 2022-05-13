@@ -8,10 +8,10 @@ public class PlayerMovment : MonoBehaviour
     public float JumpHeight;        // 점프 높이
     private bool LongJump = false;  // 낮은 점프, 높은 점프
     
-    private LayerMask Ground;
-    private CapsuleCollider2D capsuleCollider2D;
-    private bool isGrounded;
-    private Vector2 FootPosition;
+    public LayerMask Ground;                       // 바닥 레이어
+    private CapsuleCollider2D capsuleCollider2D;    // 오브젝트 충돌 범위 컴포넌트
+    private bool isGrounded;                        // 바닥 충돌 여부
+    private Vector2 FootPosition;                   // 발 위치
 
 
     Rigidbody2D rigid;
@@ -49,9 +49,9 @@ public class PlayerMovment : MonoBehaviour
 
     void FixedUpdate()
     {
-    //    Bounds bounds = capsuleCollider2D.bounds;
-     //   FootPosition = new Vector2(bounds.center.x, bounds.min.y);
-    //    isGrounded = Physics2D.OverlapCircle(FootPosition, 0.1f, Ground);
+        Bounds bounds = capsuleCollider2D.bounds;
+        FootPosition = new Vector2(bounds.center.x, bounds.min.y);
+        isGrounded = Physics2D.OverlapCircle(FootPosition, 0.1f, Ground);
 
         if ( LongJump && rigid.velocity.y > 0 )
         {
@@ -63,9 +63,13 @@ public class PlayerMovment : MonoBehaviour
         }
     }
 
+    
+
     private void Jump()
     {   
-        rigid.velocity = Vector2.up * JumpHeight;
-        
+        if ( isGrounded == true )
+        {
+            rigid.velocity = Vector2.up * JumpHeight;
+        }
     }
 }
