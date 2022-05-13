@@ -8,10 +8,14 @@ public class PlayerMovment : MonoBehaviour
     public float JumpHeight;        // 점프 높이
     private bool LongJump = false;  // 낮은 점프, 높은 점프
     
-    
+    private LayerMask Ground;
+    private CapsuleCollider2D capsuleCollider2D;
+    private bool isGrounded;
+    private Vector2 FootPosition;
 
 
     Rigidbody2D rigid;
+
     void Start()
     {
         
@@ -20,6 +24,7 @@ public class PlayerMovment : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        capsuleCollider2D = GetComponent<CapsuleCollider2D>();
     }
 
     void Update()
@@ -40,12 +45,14 @@ public class PlayerMovment : MonoBehaviour
         {
             LongJump = false;
         }
-
-        
     }
 
     void FixedUpdate()
     {
+    //    Bounds bounds = capsuleCollider2D.bounds;
+     //   FootPosition = new Vector2(bounds.center.x, bounds.min.y);
+    //    isGrounded = Physics2D.OverlapCircle(FootPosition, 0.1f, Ground);
+
         if ( LongJump && rigid.velocity.y > 0 )
         {
             rigid.gravityScale = 0.5f;
