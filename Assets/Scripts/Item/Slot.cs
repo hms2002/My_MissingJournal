@@ -23,6 +23,8 @@ public class Slot : MonoBehaviour
                     return 5;
                 case ItemType.Equipment:
                     return 1;
+                case ItemType.Food:
+                    return 10;
             }
             return -1;
         }
@@ -44,10 +46,14 @@ public class Slot : MonoBehaviour
             return false;
         else
         {
+            Debug.Log(item.name);
+            Debug.Log(item.itemType);
+            Debug.Log(item.effects);
+
             // 아이템 사용에 성공하면 개수 하나 줄이기
-                // 내구도를 사용한다면?
-                    // 아이템 개수를 줄이는 것은 Material만 해당한다.
-            switch(item.itemType)
+            // 내구도를 사용한다면?
+            // 아이템 개수를 줄이는 것은 Material만 해당한다.
+            switch (item.itemType)
             {
                 case ItemType.Material:
                     // 아이템이 재료일 때 사용하기
@@ -68,15 +74,24 @@ public class Slot : MonoBehaviour
                     }
                     else return false;
                     break;
+                case ItemType.Food:                    
+                    // 먹기에 성공하면
+                    if (item.Use() == true) 
+                    {
+                        stack--;// 개수를 하나 뺀다
+                        Inventory.instance.onChangeItem.Invoke();
+                    }
+                    else return false;
+                    break;
             }
-
-            if(stack < 1)
-            {
-                RemoveSlot();
-                Inventory.instance.onChangeItem.Invoke();
-            }
-            return true;
         }
+        if (stack < 1)
+        {
+            Debug.Log("삭-제");
+            RemoveSlot();
+            Inventory.instance.onChangeItem.Invoke();
+        }
+        return true;
     }
     public void RemoveSlot()
     {

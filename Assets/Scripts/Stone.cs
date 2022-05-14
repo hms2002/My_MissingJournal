@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Tree : MonoBehaviour
+public class Stone : MonoBehaviour
 {
     public Button btn;
     public Image coolTimeImg;
     public Slider fellSlider;
+    Animator anim;
 
     Inventory inven;
-    
-    public float waitTime = 5;
-    public float fellingTime;
+
+    float waitTime = 5;
+    float pickingTime;
     float curTime;
 
-    bool onFalling;
+    bool onPicking;
     bool isWaitingTime;
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
+
         waitTime = 5f;
 
         fellSlider.gameObject.SetActive(false);
@@ -33,16 +36,16 @@ public class Tree : MonoBehaviour
     private void Update()
     {
         // 나무 캐기 쿨타임
-        if(onFalling)
+        if (onPicking)
         {
             x = Input.GetAxisRaw("Horizontal");
 
             // 캐는 도중에 입력받으면 실행
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || x != 0 || Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Alpha6))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || x != 0 || Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Alpha6))
             {
-                PlayerMovment.instance.StopFelling();
+                PlayerMovment.instance.StopPicking();
 
-                onFalling = false;
+                onPicking = false;
 
                 // 캐기 진행도 슬라이더 끄기
                 fellSlider.gameObject.SetActive(false);
@@ -67,12 +70,14 @@ public class Tree : MonoBehaviour
 
             curTime += UnityEngine.Time.deltaTime;
             fellSlider.value = curTime;
-            
-            // 나무 캐기 끝났을 때
-            if(curTime >= fellingTime)
+
+
+            // 돌 캐기 끝났을 때
+            if (curTime >= pickingTime)
             {
-                PlayerMovment.instance.StopFelling();
-                onFalling = false;
+                anim.SetInteger("Step", 2);
+                PlayerMovment.instance.StopPicking();
+                onPicking = false;
                 curTime = 0;
 
                 isWaitingTime = true;
@@ -83,16 +88,23 @@ public class Tree : MonoBehaviour
 
                 DropItem();
             }
+            else if(curTime >= pickingTime/2)
+            {
+                anim.SetInteger("Step", 1);
+            }
         }
         // 대기 시간 쿨타임
-        else if(isWaitingTime == true)
+        else if (isWaitingTime == true)
         {
             curTime += UnityEngine.Time.deltaTime;
-            
+
             coolTimeImg.fillAmount = curTime / waitTime;
-            
+
             if (curTime > waitTime)
             {
+
+                anim.SetInteger("Step", 0);
+
                 isWaitingTime = false;
 
                 curTime = 0;
@@ -102,39 +114,30 @@ public class Tree : MonoBehaviour
         }
     }
 
-    public void Felling()
+    public void Picking()
     {
         if (isWaitingTime == true) return;
 
-        PlayerMovment.instance.Felling();
+        PlayerMovment.instance.Picking();
 
         btn.interactable = false;
 
         coolTimeImg.fillAmount = 0;
         coolTimeImg.transform.parent.gameObject.SetActive(false);
 
-        onFalling = true;
+        onPicking = true;
         fellSlider.gameObject.SetActive(true);
 
-        if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
-            fellingTime = 10;
+        if (inven.slots[inven.highlightSlotIdx].item.name == "Pick")
+            pickingTime = 10;
         else
-            fellingTime = 15;
+            pickingTime = 15;
 
-        fellSlider.maxValue = fellingTime;
+        fellSlider.maxValue = pickingTime;
     }
 
     public void DropItem()
     {
-        ItemDatabase.instance.DropItem((int)ItemList.Branch, transform.position);
-
-        switch(Random.Range(0, 2))
-        {
-            case 0:
-                break;
-            case 1:
-                ItemDatabase.instance.DropItem((int)ItemList.Fruits, transform.position);
-                break;
-        }
+        ItemDatabase.instance.DropItem((int)ItemList.Stone, transform.position);
     }
 }

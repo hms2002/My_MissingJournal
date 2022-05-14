@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
 {
+    public static PlayerMovment instance;
+
     Animator anim;              // 플레이어 애니메이션
     SpriteRenderer renderer;    // 플레이어 이미지 좌우반전
 
     public float MaxSpeed;          // 이동 속도
+    private bool canMove;
+
     public float JumpHeight;        // 점프 높이
     private bool LongJump = false;  // 낮은 점프, 높은 점프
-    
+    private bool canJump;
+
     public LayerMask Ground;                       // 바닥 레이어
     private CapsuleCollider2D capsuleCollider2D;    // 오브젝트 충돌 범위 컴포넌트
     private bool isGrounded;                        // 바닥 충돌 여부
@@ -20,61 +25,29 @@ public class PlayerMovment : MonoBehaviour
 
     void Awake()
     {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+
         anim = GetComponent<Animator>();
         renderer = GetComponent<SpriteRenderer>();
 
         rigid = GetComponent<Rigidbody2D>();
         capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+
+        canMove = true;
+        canJump = true;
     }
 
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-
-        if(h != 0)
-        {
-            /* anim.SetBool("isWalking", true); */
-
-            if(h > 0)
-            {
-                renderer.flipX = true;
-            }
-            else
-            {
-                renderer.flipX = false;
-            }
-        }
-       else
-        {
-            /* anim.SetBool("isWalking", false); */
-            
-        }
-
-        rigid.velocity = new Vector2(h * MaxSpeed, rigid.velocity.y);
-
-        if ( Input.GetKeyDown(KeyCode.D) )
-        {
-            transform.localEulerAngles = new Vector3(0, 0, 0);
-        }
-
-        if ( Input.GetKeyDown(KeyCode.A) )
-        {
-            transform.localEulerAngles = new Vector3(0, 180, 0);
-        }
-
-
-        if ( Input.GetKeyDown(KeyCode.Space) )
+        Move();
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
-        }
-
-        if ( Input.GetKey(KeyCode.Space) )
-        {
-            LongJump = true;
-        }
-        else if ( Input.GetKeyUp(KeyCode.Space) )
-        {
-            LongJump = false;
         }
     }
 
@@ -94,13 +67,132 @@ public class PlayerMovment : MonoBehaviour
         }
     }
 
-    
+    private void Move()
+    {
+        if (!canMove) return;
+
+        float h = Input.GetAxis("Horizontal");
+
+        if (h != 0)
+        {
+            anim.SetBool("isWalking", true);
+
+            if (h > 0)
+            {
+                renderer.flipX = true;
+            }
+            else
+            {
+                renderer.flipX = false;
+            }
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+
+        }
+
+        rigid.velocity = new Vector2(h * MaxSpeed, rigid.velocity.y);
+    }
 
     private void Jump()
-    {   
+    {
+        if (!canJump) return;
+
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            LongJump = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            LongJump = false;
+        }
+
         if ( isGrounded == true )
         {
             rigid.velocity = Vector2.up * JumpHeight;
         }
+    }
+
+    public void Felling()
+    {
+        Inventory inven = Inventory.instance;
+        if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
+        {
+            anim.SetLayerWeight(0, 0);
+            anim.SetLayerWeight(1, 1);
+            anim.SetLayerWeight(2, 0);
+        }
+        else
+        {
+            anim.SetBool("isHandling", true);
+            anim.SetTrigger("isOnce");
+        }
+    }
+
+    public void StopFelling()
+    {
+        Inventory inven = Inventory.instance;
+        if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+        }
+        else
+        {
+            anim.SetBool("isHandling", false);
+            anim.SetTrigger("isOnce");
+        }
+    }
+
+
+    public void Picking()
+    {
+        Inventory inven = Inventory.instance;
+
+        if (inven.slots[inven.highlightSlotIdx].item.name == "Pick")
+        {
+            anim.SetLayerWeight(0, 0);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 1);
+        }
+        else
+        {
+            anim.SetBool("isHandling", true);
+            anim.SetTrigger("isOnce");
+        }
+
+    }
+
+    public void StopPicking()
+    {
+        Inventory inven = Inventory.instance;
+
+        if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+        }
+        else
+        {
+            anim.SetBool("isHandling", false);
+            anim.SetTrigger("isOnce");
+        }
+    }
+
+    public void PlayerFree()
+    {
+        canMove = true;
+        canMove = true;
+    }
+
+    public void PlayerConfine()
+    {
+        canMove = false;
+        canJump = false;
+        anim.SetBool("isWalking", false);
     }
 }

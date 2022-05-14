@@ -2,6 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemType
+{
+    Material,
+    Equipment,
+    Food
+}
+
+public enum ItemList
+{
+    Branch,         // ³ª¹µ°¡Áö
+    Fruits,         // °úÀÏ
+    Stone,          // µ¹ Á¶°¢
+    Club,           // ¸ùµÕÀÌ
+    Pick,           // °î±ªÀÌ
+    Axe,            // µµ³¢
+    Pail,           // ¾çµ¿ÀÌ
+    WaterPurifier,  // Á¤¼ö±â
+    Bonfire         // ¸ð´ÚºÒ
+}
+
 public class ItemDatabase : MonoBehaviour
 {
     public static ItemDatabase instance;
@@ -16,19 +36,20 @@ public class ItemDatabase : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        GameObject go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
+        go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Axe]);
+    }
+
     public List<Item> itemDB = new List<Item>();
 
     public GameObject fieldItemPrefab;
-    public Vector3[] pos;
 
-    private void Start()
+    public void DropItem(int objType, Vector3 objPos)
     {
-        for(int i = 0; i < 7; i++)
-        {
-
-            GameObject go = Instantiate(fieldItemPrefab, pos[i], Quaternion.identity);
-            go.GetComponent<FieldItems>().SetItem(itemDB[0]);
-        }
+        GameObject go = Instantiate(fieldItemPrefab, objPos, Quaternion.identity);
+        go.GetComponent<FieldItems>().SetItem(itemDB[objType]);
+        go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-20, 20), Random.Range(10, 30)));
     }
-
 }
