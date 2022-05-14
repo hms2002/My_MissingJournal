@@ -50,7 +50,7 @@ public class PlayerMovment : MonoBehaviour
                 renderer.flipX = false;
             }
         }
-        else
+       else
         {
             anim.SetBool("isWalking", false);
             
