@@ -29,15 +29,66 @@ public class Inventory : MonoBehaviour
     public delegate void OnChangeItem();
     public OnChangeItem onChangeItem;
 
+    InventoryUI invenUI;
+
     public List<Item> items = new List<Item>();
+
+    // 제작 모드인가 확인
+    public bool onCreate = true;
+
 
     private void Start()
     {
+        instance.onCreate = false;
+        invenUI = InventoryUI.instance;
+
         slots = soltMenu.GetComponentsInChildren<Slot>();
 
         for (int i = 0; i < SLOT_SIZE; i++)
         {
             slots[i].isEmpty = true;
+        }
+    }
+
+    int highlightSlotIdx = 0;
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            highlightSlotIdx = 0;
+            invenUI.HighlightSlot(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            highlightSlotIdx = 1;
+            invenUI.HighlightSlot(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            highlightSlotIdx = 2;
+            invenUI.HighlightSlot(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+
+            highlightSlotIdx = 3;
+            invenUI.HighlightSlot(3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            highlightSlotIdx = 4;
+            invenUI.HighlightSlot(4);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            highlightSlotIdx = 5;
+            invenUI.HighlightSlot(5);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            bool success = slots[highlightSlotIdx].UseSlot();
+            Debug.Log(success);
         }
     }
 
