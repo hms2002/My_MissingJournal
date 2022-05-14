@@ -19,10 +19,9 @@ public class PlayerHp : MonoBehaviour
 
     void Update()
     {
-        if ( Input.GetKeyDown(KeyCode.I) )
+        if ( Input.GetKeyDown(KeyCode.I) )    // 테스트 코드
         {
             gde.AttackPlayer();
-            HpBar.value = CurHp;
         }
 
         if ( CurHp < 0 )              // HP 음수 방지
@@ -30,6 +29,7 @@ public class PlayerHp : MonoBehaviour
             CurHp = 0;
         }   
 
+        HpBar.value = CurHp;
         HpText.text = CurHp.ToString() + " / " + MaxHp.ToString();
     }
 }

@@ -19,7 +19,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Awake()
     {
-        // ½Ì±ÛÅæ Ã³¸®
+        // ï¿½Ì±ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         if (instance != null)
         {
             Destroy(gameObject);
@@ -28,7 +28,7 @@ public class InventoryUI : MonoBehaviour
         instance = this;
 
 
-        // ¼±ÅÃÇÑ ½½·Ô ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         highlightSlotIdx = 0;
 
         inven = Inventory.instance;

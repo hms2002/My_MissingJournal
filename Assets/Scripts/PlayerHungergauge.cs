@@ -8,8 +8,8 @@ public class PlayerHungergauge : MonoBehaviour
     public Image Hunger;              // 허기 게이지 UI
     public Text Gauge;                // 허기 게이지 Text
 
-    public int CurHunger;             // 현재 허기 게이지
-    private int MaxHunger = 100;      // 최대 허기 게이지
+    public static float CurHunger;             // 현재 허기 게이지
+    private float MaxHunger = 100;      // 최대 허기 게이지
 
     void Start()
     {
@@ -29,7 +29,7 @@ public class PlayerHungergauge : MonoBehaviour
             CurHunger = 0;
         } 
 
-        Hunger.fillAmount = (float) CurHunger / (float) MaxHunger;
+        Hunger.fillAmount = CurHunger / MaxHunger;
         Gauge.text = CurHunger.ToString();
     }
 }

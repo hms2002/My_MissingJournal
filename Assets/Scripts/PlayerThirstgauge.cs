@@ -8,8 +8,8 @@ public class PlayerThirstgauge : MonoBehaviour
     public Image Thirst;              // 갈증 게이지 UI
     public Text Gauge;                // 갈증 게이지 Text
     
-    public int CurThirst;             // 현재 갈증 게이지
-    private int MaxThirst = 100;      // 최대 갈증 게이지
+    public static float CurThirst;             // 현재 갈증 게이지
+    private float MaxThirst = 100;      // 최대 갈증 게이지
 
     void Start()
     {
@@ -29,7 +29,7 @@ public class PlayerThirstgauge : MonoBehaviour
             CurThirst = 0;
         } 
 
-        Thirst.fillAmount = (float) CurThirst / (float) MaxThirst;
+        Thirst.fillAmount = CurThirst / MaxThirst;
         Gauge.text = CurThirst.ToString();
     }
 }

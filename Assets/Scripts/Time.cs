@@ -8,8 +8,9 @@ public class Time : MonoBehaviour
 {
     public Text Clock;                // 시계
     public Text Today;                // 생존 일자
+    public Text test1;
 
-    private int hour = 9;            // 시
+    private int hour = 8;            // 시
     private int minute = 0;          // 분
     private bool afternoon = false;  // 오전 오후 여부
     private bool twelve = false;     // 정오 자정 구분
@@ -19,10 +20,9 @@ public class Time : MonoBehaviour
 
     void Update()
     { 
-        timer += UnityEngine.Time.deltaTime;
+        timer += Mathf.Floor(UnityEngine.Time.deltaTime * 1000) / 1000;
 
-
-        if (timer >= 0.03333333)
+        if (timer % 0.033== 0)
         {
             minute += 1;
             timer = 0;
@@ -53,7 +53,7 @@ public class Time : MonoBehaviour
             twelve = true;
         }
 
-        
+        test1.text = timer.ToString();
         Today.text = day.ToString() + "일차";
 
         Clock.text = state + " " + hour.ToString("D2") + " : " + minute.ToString("D2");

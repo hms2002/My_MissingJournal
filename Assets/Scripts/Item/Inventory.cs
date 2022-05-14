@@ -33,7 +33,7 @@ public class Inventory : MonoBehaviour
 
     public List<Item> items = new List<Item>();
 
-    // Á¦ÀÛ ¸ðµåÀÎ°¡ È®ÀÎ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Î°ï¿½ È®ï¿½ï¿½
     public bool onCreate = true;
 
 
@@ -96,7 +96,7 @@ public class Inventory : MonoBehaviour
     {
         for(int i = 0; i < SLOT_SIZE; i++)
         {
-            // ½½·Ô ¾È¿¡ ¾ÆÀÌÅÛ ÀÖ´ÂÁö È®ÀÎ
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
             if (slots[i].isEmpty == true)
             {
                 slots[i].isEmpty = false;

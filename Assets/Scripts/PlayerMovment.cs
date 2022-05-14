@@ -16,13 +16,7 @@ public class PlayerMovment : MonoBehaviour
     private bool isGrounded;                        // 바닥 충돌 여부
     private Vector2 FootPosition;                   // 발 위치
 
-
     Rigidbody2D rigid;
-
-    void Start()
-    {
-        
-    }
 
     void Awake()
     {
@@ -39,7 +33,7 @@ public class PlayerMovment : MonoBehaviour
 
         if(h != 0)
         {
-            anim.SetBool("isWalking", true);
+            /* anim.SetBool("isWalking", true); */
 
             if(h > 0)
             {
@@ -52,11 +46,22 @@ public class PlayerMovment : MonoBehaviour
         }
        else
         {
-            anim.SetBool("isWalking", false);
+            /* anim.SetBool("isWalking", false); */
             
         }
 
         rigid.velocity = new Vector2(h * MaxSpeed, rigid.velocity.y);
+
+        if ( Input.GetKeyDown(KeyCode.D) )
+        {
+            transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+
+        if ( Input.GetKeyDown(KeyCode.A) )
+        {
+            transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
+
 
         if ( Input.GetKeyDown(KeyCode.Space) )
         {
