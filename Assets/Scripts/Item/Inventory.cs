@@ -50,7 +50,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    int highlightSlotIdx = 0;
+    public int highlightSlotIdx = 0;
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))

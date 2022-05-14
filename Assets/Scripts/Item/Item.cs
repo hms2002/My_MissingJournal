@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ItemType
-{
-    Material,
-    Equipment
-}
 
 [System.Serializable]
 public class Item
