@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
 {
-    AudioSource audioSource;
+    public AudioSource audioSource;
 
     public AudioClip caveWalkSound;
     public AudioClip forestWalkSound;

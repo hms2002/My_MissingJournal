@@ -18,19 +18,12 @@ public class Time : MonoBehaviour
     private float timer1 = 0;         // 게임 시간을 계산을위한 타이머
     private float timer2 = 0;         // 게임 시간을 계산을위한 타이머
 
-    SoundManager SND;
-
-    void Start()
-    {
-        SND = GetComponent<SoundManager>();
-    }
-
     void Update()
     { 
         timer1 += UnityEngine.Time.deltaTime;
         timer2 += UnityEngine.Time.deltaTime;
 
-        if (timer1 >= 0.333)
+        if (timer1 >= 0.033)
         {
             minute += 1;
             timer1 = 0;
@@ -72,13 +65,13 @@ public class Time : MonoBehaviour
 
         Clock.text = state + " " + hour.ToString("D2") + " : " + minute.ToString("D2");
 
-        if (state == "AM" && hour >= 6)
+        if ((state == "PM" && hour >= 6) || (state == "AM" && hour <= 5))
         {
-            //GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(1);
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(1);
         }
         else
         {
-            //GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(0);
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(0);
         }
     }
 }

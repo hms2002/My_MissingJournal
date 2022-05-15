@@ -15,10 +15,8 @@ TagManager:
   - Player
   - Water
   - UI
-  - PastureGround
+  - 
   - Enemy
-  - BeachGround
-  - CaveGround
   - 
   - 
   - 
@@ -29,6 +27,8 @@ TagManager:
   - 
   - 
   - 
+  - 
+  - Night
   - 
   - 
   - 

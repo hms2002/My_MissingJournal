@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class FlyEnemy : MonoBehaviour
 {
+    public AudioSource audioSource;
+
+    public AudioClip BatCry;
+    public AudioClip BatAttack;
+
     private int CurEnemyHp = 25;         // 적 현재 Hp
     private int MaxEnemyHp = 25;         // 적 최대 HP
     private int EnemyAttack = 15;        // 적 공격력
@@ -68,6 +73,14 @@ public class FlyEnemy : MonoBehaviour
                 Quaternion rotation = Quaternion.AngleAxis(angle , Vector3.forward);
                 Pos.rotation = rotation;
 
+                audioSource.pitch = 2;
+                audioSource.clip = BatAttack;
+                audioSource.volume = 0.3f;
+                if (audioSource.isPlaying == false)
+                {
+                    audioSource.Play();
+                }
+
                 GameObject Bulletcopy = Instantiate(Bullet, Pos.position, Quaternion.AngleAxis(angle - 90, Vector3.forward));
                 AttackCurTime = AttackCoolTime;  
             }
@@ -112,7 +125,6 @@ public class FlyEnemy : MonoBehaviour
 
     public void TakeDamage(int Attack)
     {
-        Debug.Log("Hit");
         CurEnemyHp -= Attack;
     }
 

@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour
     
     void Update()
     {
+        
         RaycastHit2D raycast = Physics2D.Raycast(transform.position, transform.right * -1, distance, isLayer);
         if ( raycast.collider != null )
         {
