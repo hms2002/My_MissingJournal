@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {   
+    public static SoundManager instance;
+
     public AudioClip BatCry;              // 박쥐 울음 소리
     public AudioClip BoarCrt;             // 멧돼지 울음 소리
     public AudioClip BeachWalk;           // 해변 걷는 소리
@@ -22,4 +24,37 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource BGM;
     public AudioSource audioSource;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void Start()
+    {
+        BGM = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    public void MainBGM(int state)
+    {
+        if (state == 0)
+        {
+            BGM.clip = DaytimeBGM;
+        }
+        else
+        {
+            BGM.clip = NightBGM;
+        }
+        BGM.loop = true;
+        BGM.Play();
+    }
 }

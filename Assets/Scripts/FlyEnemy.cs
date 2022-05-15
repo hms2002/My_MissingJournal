@@ -19,7 +19,10 @@ public class FlyEnemy : MonoBehaviour
 
     public GameObject Bullet;            // 총알 오브젝트
     public Transform Pos;                // 사출 위치
-    public Transform player;             // 플레이어 트랜스폼
+    public GameObject player;             // 플레이어 트랜스폼
+
+    public Transform Pos1;
+    public float CircleSize1;
 
     FlyEnemy enemy;
     Rigidbody2D rigid;
@@ -41,6 +44,7 @@ public class FlyEnemy : MonoBehaviour
         if ( CurEnemyHp <= 0 )
         {
             Destroy(this.gameObject);
+            GameObject.Find("EnemyManager").GetComponent<EnemyManager>().DeleteEnemy(0);
         }
 
         AttackCurTime -= UnityEngine.Time.deltaTime;
@@ -49,34 +53,30 @@ public class FlyEnemy : MonoBehaviour
         {
             AttackCurTime = 0;
         }
-
-        float distance = Vector3.Distance(transform.position, player.position);
         
-        Vector2 direction = player.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle , Vector3.forward);
-        Pos.rotation = rotation;
+        Collider2D[] collider2Ds1 = Physics2D.OverlapCircleAll(Pos1.position, CircleSize1);
+        foreach (Collider2D collider in collider2Ds1)
+        {
+            if (AttackCurTime == 0 && collider.tag == "Player")
+            {   
+                CancelInvoke();
+                NextMove = 0;
+                Detect = true;
+                player = GameObject.FindGameObjectWithTag("Player");
+                Vector2 direction = player.transform.position - transform.position;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle , Vector3.forward);
+                Pos.rotation = rotation;
 
-        if ( AttackCurTime == 0 && distance <= enemy.FieldOfVision )
-        {
-            CancelInvoke();
-            NextMove = 0;
-            FaceTarget();
-            Detect = true;
-            if ( distance <= AttackRange )
-            {
                 GameObject Bulletcopy = Instantiate(Bullet, Pos.position, Quaternion.AngleAxis(angle - 90, Vector3.forward));
-                // 공격 애니메이션
-                AttackCurTime = AttackCoolTime;            
+                AttackCurTime = AttackCoolTime;  
             }
-            AttackCurTime -= UnityEngine.Time.deltaTime;
-        }
-        else
-        {
+            else
             if (Detect == true)
             {
                 timer += UnityEngine.Time.deltaTime;            
             }
+            AttackCurTime -= UnityEngine.Time.deltaTime;
         }
 
         if (timer >= 2)
@@ -93,7 +93,7 @@ public class FlyEnemy : MonoBehaviour
 
         Vector2 frontVec = new Vector2(rigid.position.x + NextMove*0.4f, rigid.position.y - 3);
         Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
-        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Ground"));
+        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("PastureGround"));
         if ( rayHit.collider == null )
         {
             NextMove *= -1;
@@ -110,21 +110,15 @@ public class FlyEnemy : MonoBehaviour
         Invoke("Think", nextThinkTime);
     }
 
-    void FaceTarget()
-    {
-        if (player.position.x - transform.position.x < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-    }
-
     public void TakeDamage(int Attack)
     {
         Debug.Log("Hit");
         CurEnemyHp -= Attack;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(Pos1.position, CircleSize1);
     }
 }

@@ -35,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
 
         if ( CurTime <= 0 )
         {
-            if ( Input.GetKey(KeyCode.Z) )
+            if ( Input.GetKey(KeyCode.Mouse0) )
             {
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Pos.position, BoxSize, 0);
                 foreach (Collider2D collider in collider2Ds)
