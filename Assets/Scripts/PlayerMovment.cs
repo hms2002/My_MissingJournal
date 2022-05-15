@@ -103,7 +103,7 @@ public class PlayerMovment : MonoBehaviour
             rigid.gravityScale = 1f;
         }
     }
-
+    public bool isCaveGround;
     private void Move()
     {
         if (!canMove) return;
@@ -114,8 +114,9 @@ public class PlayerMovment : MonoBehaviour
         {
             anim.SetBool("isWalking", true);
 
+            isCaveGround = Physics2D.OverlapCircle(FootPosition, 0.1f, CaveGround);
 
-            if (Physics2D.OverlapCircle(FootPosition, 0.1f, CaveGround))
+            if (isCaveGround)
             {
                 audioSource.pitch = 2;
                 audioSource.clip = caveWalkSound;
@@ -258,7 +259,12 @@ public class PlayerMovment : MonoBehaviour
         }
         else if (inven.slots[inven.highlightSlotIdx].item.name == "Club")
         {
-
+            anim.SetLayerWeight(0, 0);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 1);
+            anim.SetBool("isHandling", false);
         }
         else
         {
@@ -489,5 +495,21 @@ public class PlayerMovment : MonoBehaviour
         canMove = false;
         canJump = false;
         anim.SetBool("isWalking", false);
+        if (audioSource.isPlaying == true)
+            audioSource.Stop();
+    }
+
+    public void PlayerDie()
+    {
+        PlayerConfine();
+        rigid.velocity = Vector2.zero;
+        anim.SetTrigger("Die");
+
+        anim.SetLayerWeight(0, 0);
+        anim.SetLayerWeight(1, 0);
+        anim.SetLayerWeight(2, 0);
+        anim.SetLayerWeight(3, 0);
+        anim.SetLayerWeight(4, 0);
+        anim.SetLayerWeight(5, 1);
     }
 }

@@ -38,6 +38,7 @@ public class PlayerHungergauge : MonoBehaviour
 
         if ( CurHunger < 0 )              // 허기 음수 방지
         {
+            PlayerHp.instance.Heal(-10);
             CurHunger = 0;
         } 
 

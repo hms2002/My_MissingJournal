@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2829043545992584c97f30186630f256
+guid: 3f45a704065fc4645a34d8d80115c24f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,13 +104,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bonfire_0
+      name: attack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,41 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9c55e8c9a1cb5f49a683d4731da341a
-      internalID: 2042695800
+      spriteID: 560d409f8d66d1a4082e35b532c7ea3b
+      internalID: -160780222
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bonfire_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f1b840d10c776c94ea8ddf7e4c0d47d5
-      internalID: 329345153
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bonfire_2
+      name: attack_1
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,41 +139,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb209bd97cf75fc4a866690d423e3e51
-      internalID: -1357785074
+      spriteID: 2228dadcb21f63a4ba1fe205b7d4666b
+      internalID: 532086149
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bonfire_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e97faa41110abb4429f0a16031097109
-      internalID: 233219190
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bonfire_4
+      name: attack_2
       rect:
         serializedVersion: 2
         x: 256
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,41 +160,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 801c5a116bad65d41a23d7e62821c9bc
-      internalID: -198976071
+      spriteID: f694f8851be740743b0314773e3802ba
+      internalID: -1518677402
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bonfire_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 55290980cf3bf0443ac96234ae06fbe2
-      internalID: 1135390600
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bonfire_6
+      name: attack_3
       rect:
         serializedVersion: 2
         x: 384
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,41 +181,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1abda3126fdc8294d9a09155d4633c89
-      internalID: -689357865
+      spriteID: 90e3782b9637c744f8fafa524bee1238
+      internalID: 1948545331
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bonfire_7
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cb57c009f5cc92940ad168a30c8c17fb
-      internalID: 1610869995
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bonfire_8
+      name: attack_4
       rect:
         serializedVersion: 2
         x: 512
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -286,29 +202,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d5a95f2c553c2243963e38a1e1edb82
-      internalID: 1026140264
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bonfire_9
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 85a2d60a4e9a13d498eaad0bc57c8cf4
-      internalID: 1192402429
+      spriteID: b265118e33bd1ed4e9276acfd8d7a5cf
+      internalID: 1387788103
       vertices: []
       indices: 
       edges: []
@@ -324,16 +219,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bonfire_2: -1357785074
-      bonfire_5: 1135390600
-      bonfire_6: -689357865
-      bonfire_3: 233219190
-      bonfire_1: 329345153
-      bonfire_4: -198976071
-      bonfire_0: 2042695800
-      bonfire_7: 1610869995
-      bonfire_8: 1026140264
-      bonfire_9: 1192402429
+      attack_4: 1387788103
+      attack_2: -1518677402
+      attack_1: 532086149
+      attack_3: 1948545331
+      attack_0: -160780222
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

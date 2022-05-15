@@ -45,11 +45,6 @@ public class GroundEnemy : MonoBehaviour
 
     void Update()
     {
-        if ( CurEnemyHp <= 0 )  // HP 없으면 죽음
-        {
-            Destroy(this.gameObject);
-            GameObject.Find("EnemyManager").GetComponent<EnemyManager>().DeleteEnemy(1);
-        }
 
         AttackCurTime -= UnityEngine.Time.deltaTime;
 
@@ -142,6 +137,15 @@ public class GroundEnemy : MonoBehaviour
     {
         Debug.Log("Hit");
         CurEnemyHp -= Attack;
+
+        if (CurEnemyHp <= 0)  // HP 없으면 죽음
+        {
+            ItemDatabase.instance.DropItem((int)ItemList.RawMeat, transform.position);
+
+            GameObject.Find("EnemyManager").GetComponent<EnemyManager>().DeleteEnemy(1);
+
+            Destroy(this.gameObject);
+        }
     }
 
     public void AttackPlayer()

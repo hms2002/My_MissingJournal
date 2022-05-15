@@ -35,12 +35,13 @@ public class InventoryUI : MonoBehaviour
         inven.onChangeItem += RedrawSlotUI;
 
         slotMenu = inven.soltMenu;
-    }
-    private void Start()
-    {
+
         slots = slotMenu.GetComponentsInChildren<Slot>();
         for (int i = 0; i < MAX_SLOT_SIZE; i++)
             images[i] = slots[i].GetComponent<Image>();
+    }
+    private void Start()
+    {
 
         defaultColor = images[0].color;
 
