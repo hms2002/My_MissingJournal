@@ -6,10 +6,22 @@ using TMPro;
 using UnityEngine.SceneManagement;
 public class OpenDieUI : MonoBehaviour
 {
+    public static OpenDieUI instance;
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        instance = this;
+    }
+
     public Image background;
     public TextMeshProUGUI text;
 
-    public void Start()
+    public void start()
     {
         StartCoroutine("FadeDieUI");
     }
