@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2829043545992584c97f30186630f256
+guid: 818f32a93a5aec64c9b685135f1c599e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,13 +104,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bonfire_0
+      name: die_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,41 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9c55e8c9a1cb5f49a683d4731da341a
-      internalID: 2042695800
+      spriteID: 3306b8a7e17dde4469243f68bec383a0
+      internalID: 1129113708
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bonfire_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f1b840d10c776c94ea8ddf7e4c0d47d5
-      internalID: 329345153
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bonfire_2
+      name: die_1
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,41 +139,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb209bd97cf75fc4a866690d423e3e51
-      internalID: -1357785074
+      spriteID: dff5b513e2e667b459d5988e7d8b26c2
+      internalID: 1688562257
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bonfire_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e97faa41110abb4429f0a16031097109
-      internalID: 233219190
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bonfire_4
+      name: die_2
       rect:
         serializedVersion: 2
         x: 256
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,41 +160,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 801c5a116bad65d41a23d7e62821c9bc
-      internalID: -198976071
+      spriteID: 7c4fc153de33bdc448162d61c6813867
+      internalID: 149645662
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bonfire_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 55290980cf3bf0443ac96234ae06fbe2
-      internalID: 1135390600
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bonfire_6
+      name: die_3
       rect:
         serializedVersion: 2
         x: 384
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,41 +181,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1abda3126fdc8294d9a09155d4633c89
-      internalID: -689357865
+      spriteID: 666115d6fb67cf84f9902b6fd141466b
+      internalID: -815922873
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bonfire_7
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cb57c009f5cc92940ad168a30c8c17fb
-      internalID: 1610869995
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bonfire_8
+      name: die_4
       rect:
         serializedVersion: 2
         x: 512
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -286,20 +202,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d5a95f2c553c2243963e38a1e1edb82
-      internalID: 1026140264
+      spriteID: 3b4eff218dc8ae2489d9e0b370127bf5
+      internalID: -615409960
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bonfire_9
+      name: die_5
       rect:
         serializedVersion: 2
-        x: 576
+        x: 640
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -307,8 +223,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85a2d60a4e9a13d498eaad0bc57c8cf4
-      internalID: 1192402429
+      spriteID: 305b1888a8d94e94f870a30bfb275f85
+      internalID: 822434865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_6
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c4b2da1e3add1e4d8287b2f8f46afac
+      internalID: -1197336069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: die_7
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6512d909364b93439487039dd74e4e6
+      internalID: 985118701
       vertices: []
       indices: 
       edges: []
@@ -324,16 +282,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bonfire_2: -1357785074
-      bonfire_5: 1135390600
-      bonfire_6: -689357865
-      bonfire_3: 233219190
-      bonfire_1: 329345153
-      bonfire_4: -198976071
-      bonfire_0: 2042695800
-      bonfire_7: 1610869995
-      bonfire_8: 1026140264
-      bonfire_9: 1192402429
+      die_4: -615409960
+      die_7: 985118701
+      die_0: 1129113708
+      die_5: 822434865
+      die_6: -1197336069
+      die_2: 149645662
+      die_3: -815922873
+      die_1: 1688562257
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

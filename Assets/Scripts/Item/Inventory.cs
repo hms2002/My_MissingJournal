@@ -89,13 +89,8 @@ public class Inventory : MonoBehaviour
             highlightSlotIdx = 5;
             invenUI.HighlightSlot(5);
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            bool success = slots[highlightSlotIdx].UseSlot();
-            Debug.Log(success);
-        }
     }
+
 
     public bool AddItem(Item _item)
     {

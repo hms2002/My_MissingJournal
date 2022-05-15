@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    Animation Anim;
+    
+    Animator anim;
 
     private int Attack = 25;
     private float CurTime;
@@ -16,13 +17,29 @@ public class PlayerAttack : MonoBehaviour
 
     Rigidbody2D rigid;
 
+    Inventory inven;
+
+    Item item;
+
     void Start()
     {
+        anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
+        inven = Inventory.instance;
+
+        item = Inventory.instance.slots[Inventory.instance.highlightSlotIdx].item;
     }
     
     void Update()
     {
+        if (inven.slots[inven.highlightSlotIdx].item == null)
+            return;
+        else if (inven.slots[Inventory.instance.highlightSlotIdx].item.name != "Club")
+        {
+            return;
+        }
+            
+
         if (Input.GetKeyDown(KeyCode.A))
         {
             Axis.localEulerAngles = new Vector3(0, 180, 0);
@@ -37,6 +54,8 @@ public class PlayerAttack : MonoBehaviour
         {
             if ( Input.GetKey(KeyCode.Mouse0) )
             {
+                anim.SetTrigger("Attack");
+
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Pos.position, BoxSize, 0);
                 foreach (Collider2D collider in collider2Ds)
                 {
