@@ -45,9 +45,8 @@ public class PlayerMovment : MonoBehaviour
             {
                 if (value == false && audioSource.isPlaying == true)
                     audioSource.Stop(); 
-                anim.SetBool("isGrounded", IsGrounded); }
             }
-           
+            anim.SetBool("isGrounded", IsGrounded); }
     }// 바닥 충돌 여부
     private Vector2 FootPosition;                   // 발 위치
 
