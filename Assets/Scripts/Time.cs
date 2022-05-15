@@ -19,6 +19,10 @@ public class Time : MonoBehaviour
     private float timer1 = 0;         // 게임 시간을 계산을위한 타이머
     private float timer2 = 0;         // 게임 시간을 계산을위한 타이머
 
+    public Transform ship;          // 배 좌표
+    public Transform End;
+    public Vector2 BoxSize;
+
     void Update()
     { 
         timer1 += UnityEngine.Time.deltaTime;
@@ -62,22 +66,29 @@ public class Time : MonoBehaviour
             twelve = true;
         }
 
-        if (day == 3 && hour == 10)
+        if (day == 3 && hour >= 10)
         {
-            SceneManager.LoadScene("Ending");
+            ship.position = new Vector3(57, 3, 0);
+            Collider2D[] collider2Ds1 = Physics2D.OverlapBoxAll(End.position, BoxSize, 0);
+            foreach (Collider2D collider in collider2Ds1)
+            {
+                if (collider.tag == "Player")
+                {   
+                    SceneManager.LoadScene(2);
+                }
+        }
         }
 
         Today.text = day.ToString() + "일차";
 
         Clock.text = state + " " + hour.ToString("D2") + " : " + minute.ToString("D2");
 
-        if ((state == "PM" && hour >= 6) || (state == "AM" && hour <= 5))
-        {
-            //GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(1);
-        }
-        else
-        {
-            //GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(0);
-        }
+        
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(End.position, BoxSize);
     }
 }
