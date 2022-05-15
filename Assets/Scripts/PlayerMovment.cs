@@ -504,5 +504,12 @@ public class PlayerMovment : MonoBehaviour
         PlayerConfine();
         rigid.velocity = Vector2.zero;
         anim.SetTrigger("Die");
+
+        anim.SetLayerWeight(0, 0);
+        anim.SetLayerWeight(1, 0);
+        anim.SetLayerWeight(2, 0);
+        anim.SetLayerWeight(3, 0);
+        anim.SetLayerWeight(4, 0);
+        anim.SetLayerWeight(5, 1);
     }
 }
