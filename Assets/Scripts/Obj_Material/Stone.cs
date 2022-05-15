@@ -118,7 +118,15 @@ public class Stone : MonoBehaviour
     {
         if (isWaitingTime == true) return;
 
-        PlayerMovment.instance.Picking();
+        Inventory inven = Inventory.instance;
+
+        if (inven.slots[inven.highlightSlotIdx].item == null) return;
+        if (inven.slots[inven.highlightSlotIdx].item.name == "FullPail")
+        {
+            inven.slots[inven.highlightSlotIdx].RemoveSlot();
+            inven.AddItem(ItemDatabase.instance.itemDB[(int)ItemList.Pail], inven.highlightSlotIdx);
+        }
+
 
         btn.interactable = false;
 
@@ -134,6 +142,8 @@ public class Stone : MonoBehaviour
             pickingTime = 15;
 
         fellSlider.maxValue = pickingTime;
+        
+        PlayerMovment.instance.Picking();
     }
 
     public void DropItem()

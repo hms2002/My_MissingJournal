@@ -107,6 +107,10 @@ public class Inventory : MonoBehaviour
                 {
                     onChangeItem.Invoke();
                 }
+                if(_item.name == "Pail" && highlightSlotIdx == i)
+                {
+                    PlayerMovment.instance.HoldingPail();
+                }
                 return true;
             }
             else if(slots[i].item.name == _item.name)
@@ -125,6 +129,21 @@ public class Inventory : MonoBehaviour
 
         return false;
     }
+    public bool AddItem(Item _item, int idx)
+    {
+        if (slots[idx].item == null)
+        {
+            slots[idx].isEmpty = false;
+            slots[idx].item = _item;
+            slots[idx].stack++;
+
+            onChangeItem.Invoke();
+
+            return true;
+        }
+        else return false;
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

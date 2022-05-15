@@ -58,8 +58,24 @@ public class InventoryUI : MonoBehaviour
     {
         images[highlightSlotIdx].color = defaultColor;
 
+        // 물 든 양동이 예외처리
+        if(inven.slots[highlightSlotIdx].item != null && inven.slots[highlightSlotIdx].item.name == "FullPail")
+        {
+            inven.slots[highlightSlotIdx].RemoveSlot();
+            inven.AddItem(ItemDatabase.instance.itemDB[(int)ItemList.Pail], highlightSlotIdx);
+        }
+        else if (inven.slots[highlightSlotIdx].item != null && inven.slots[highlightSlotIdx].item.name == "Pail")
+        {
+            PlayerMovment.instance.StopHoldingPail();
+        }
+
         images[slotNum].color = Color.white;
 
         highlightSlotIdx = slotNum;
+
+        if (inven.slots[highlightSlotIdx].item != null && inven.slots[highlightSlotIdx].item.name == "Pail")
+        {
+            PlayerMovment.instance.HoldingPail();
+        }
     }
 }

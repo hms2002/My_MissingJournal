@@ -123,9 +123,14 @@ public class PlayerMovment : MonoBehaviour
             anim.SetLayerWeight(0, 0);
             anim.SetLayerWeight(1, 1);
             anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
         }
         else
         {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
             anim.SetBool("isHandling", true);
             anim.SetTrigger("isOnce");
         }
@@ -139,9 +144,14 @@ public class PlayerMovment : MonoBehaviour
             anim.SetLayerWeight(0, 1);
             anim.SetLayerWeight(1, 0);
             anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
         }
-        else
+        else if(inven.slots[inven.highlightSlotIdx].item.name == "Pail")
         {
+            anim.SetLayerWeight(0, 0);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 1);
             anim.SetBool("isHandling", false);
             anim.SetTrigger("isOnce");
         }
@@ -157,9 +167,14 @@ public class PlayerMovment : MonoBehaviour
             anim.SetLayerWeight(0, 0);
             anim.SetLayerWeight(1, 0);
             anim.SetLayerWeight(2, 1);
+            anim.SetLayerWeight(3, 0);
         }
         else
         {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
             anim.SetBool("isHandling", true);
             anim.SetTrigger("isOnce");
         }
@@ -175,12 +190,33 @@ public class PlayerMovment : MonoBehaviour
             anim.SetLayerWeight(0, 1);
             anim.SetLayerWeight(1, 0);
             anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
         }
-        else
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "Pail")
         {
+            anim.SetLayerWeight(0, 0);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 1);
             anim.SetBool("isHandling", false);
             anim.SetTrigger("isOnce");
         }
+    }
+
+    public void HoldingPail()
+    {
+        anim.SetLayerWeight(0, 0);
+        anim.SetLayerWeight(1, 0);
+        anim.SetLayerWeight(2, 0);
+        anim.SetLayerWeight(3, 1);
+    }
+
+    public void StopHoldingPail()
+    {
+        anim.SetLayerWeight(0, 1);
+        anim.SetLayerWeight(1, 0);
+        anim.SetLayerWeight(2, 0);
+        anim.SetLayerWeight(3, 0);
     }
 
     public void PlayerFree()
