@@ -68,6 +68,10 @@ public class InventoryUI : MonoBehaviour
         {
             PlayerMovment.instance.StopHoldingPail();
         }
+        else if (inven.slots[highlightSlotIdx].item != null && inven.slots[highlightSlotIdx].item.name == "Club")
+        {
+            PlayerMovment.instance.StopHoldingClub();
+        }
 
         images[slotNum].color = Color.white;
 
@@ -76,6 +80,10 @@ public class InventoryUI : MonoBehaviour
         if (inven.slots[highlightSlotIdx].item != null && inven.slots[highlightSlotIdx].item.name == "Pail")
         {
             PlayerMovment.instance.HoldingPail();
+        }
+        else if (inven.slots[highlightSlotIdx].item != null && inven.slots[highlightSlotIdx].item.name == "Club")
+        {
+            PlayerMovment.instance.HoldingClub();
         }
     }
 }

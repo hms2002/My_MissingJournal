@@ -5,15 +5,17 @@ using UnityEngine.UI;
 
 public class WaterPurifier : MonoBehaviour
 {
+    public ItemEffects effect;
+
     public Button btn;
     public Image countUI;
     public Slider fellSlider;
 
     Inventory inven;
 
-    float waitTime = 60;
+    float waitTime = 10;
     float curTime;
-    int drinkCount;
+    public int drinkCount;
 
     bool onPurifying;
     bool isPurified;
@@ -43,6 +45,7 @@ public class WaterPurifier : MonoBehaviour
             if(curTime >= waitTime)
             {
                 onPurifying = false;
+                isPurified = true;
                 drinkCount = 2;
                 countUI.fillAmount = 1;
 
@@ -54,6 +57,7 @@ public class WaterPurifier : MonoBehaviour
 
     public void Purifying()
     {
+        Debug.Log("dd");
         if(!isPurified)
         {
             if (inven.slots[inven.highlightSlotIdx].item != null && inven.slots[inven.highlightSlotIdx].item.name == "FullPail")
@@ -74,7 +78,8 @@ public class WaterPurifier : MonoBehaviour
         {
             // 목마름 채우는 코드 짜야함
             Debug.Log("물이 시원하다!");
-            switch(drinkCount)
+            effect.ExecuteRole();
+            switch (drinkCount)
             {
                 case 1:
                     drinkCount--;

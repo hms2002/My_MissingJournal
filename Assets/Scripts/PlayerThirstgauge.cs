@@ -5,6 +5,18 @@ using UnityEngine.UI;
 
 public class PlayerThirstgauge : MonoBehaviour
 {
+    public static PlayerThirstgauge instance;
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
+
     public Image Thirst;              // 갈증 게이지 UI
     public Text Gauge;                // 갈증 게이지 Text
     
@@ -31,5 +43,11 @@ public class PlayerThirstgauge : MonoBehaviour
 
         Thirst.fillAmount = CurThirst / MaxThirst;
         Gauge.text = CurThirst.ToString();
+    }
+
+    public void Drink(int value)
+    {
+        CurThirst += value;
+        if (CurThirst > MaxThirst) CurThirst = MaxThirst;
     }
 }

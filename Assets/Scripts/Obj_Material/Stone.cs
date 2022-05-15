@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Stone : MonoBehaviour
 {
+    AudioSource audioSource;
+
     public Button btn;
     public Image coolTimeImg;
     public Slider fellSlider;
@@ -21,6 +23,9 @@ public class Stone : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Stop();
+
         anim = GetComponent<Animator>();
 
         waitTime = 5f;
@@ -38,11 +43,16 @@ public class Stone : MonoBehaviour
         // 나무 캐기 쿨타임
         if (onPicking)
         {
+            if (audioSource.isPlaying == false)
+                audioSource.Play();
+
             x = Input.GetAxisRaw("Horizontal");
 
             // 캐는 도중에 입력받으면 실행
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || x != 0 || Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Alpha6))
             {
+                audioSource.Stop();
+
                 PlayerMovment.instance.StopPicking();
 
                 onPicking = false;
@@ -75,6 +85,7 @@ public class Stone : MonoBehaviour
             // 돌 캐기 끝났을 때
             if (curTime >= pickingTime)
             {
+                audioSource.Stop();
                 anim.SetInteger("Step", 2);
                 PlayerMovment.instance.StopPicking();
                 onPicking = false;
@@ -120,8 +131,8 @@ public class Stone : MonoBehaviour
 
         Inventory inven = Inventory.instance;
 
-        if (inven.slots[inven.highlightSlotIdx].item == null) return;
-        if (inven.slots[inven.highlightSlotIdx].item.name == "FullPail")
+        if (inven.slots[inven.highlightSlotIdx].item == null) ;
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "FullPail")
         {
             inven.slots[inven.highlightSlotIdx].RemoveSlot();
             inven.AddItem(ItemDatabase.instance.itemDB[(int)ItemList.Pail], inven.highlightSlotIdx);
@@ -136,10 +147,17 @@ public class Stone : MonoBehaviour
         onPicking = true;
         fellSlider.gameObject.SetActive(true);
 
-        if (inven.slots[inven.highlightSlotIdx].item.name == "Pick")
+        if (inven.slots[inven.highlightSlotIdx].item == null) ;
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "Pick")
+        {
+            audioSource.pitch = 2;
             pickingTime = 10;
+        }
         else
+        {
+            audioSource.pitch = 1;
             pickingTime = 15;
+        }
 
         fellSlider.maxValue = pickingTime;
         
