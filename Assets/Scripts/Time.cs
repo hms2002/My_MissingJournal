@@ -9,14 +9,21 @@ public class Time : MonoBehaviour
     public Text Clock;                // 시계
     public Text Today;                // 생존 일자
 
-    private int hour = 8;            // 시
+    public int hour = 8;            // 시
     private int minute = 0;          // 분
     private bool afternoon = false;  // 오전 오후 여부
     private bool twelve = false;     // 정오 자정 구분
     private int day = 1;             // 일
-    private string state = "AM";     // 오전 오후
+    public string state = "AM";     // 오전 오후
     private float timer1 = 0;         // 게임 시간을 계산을위한 타이머
     private float timer2 = 0;         // 게임 시간을 계산을위한 타이머
+
+    SoundManager SND;
+
+    void Start()
+    {
+        SND = GetComponent<SoundManager>();
+    }
 
     void Update()
     { 
@@ -65,5 +72,13 @@ public class Time : MonoBehaviour
 
         Clock.text = state + " " + hour.ToString("D2") + " : " + minute.ToString("D2");
 
+        if (state == "AM" && hour >= 6)
+        {
+            //GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(1);
+        }
+        else
+        {
+            //GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(0);
+        }
     }
 }
