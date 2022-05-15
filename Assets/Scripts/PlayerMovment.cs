@@ -41,9 +41,13 @@ public class PlayerMovment : MonoBehaviour
         get { return IsGrounded; }
         set {
             IsGrounded = value;
-            if (value == false && audioSource.isPlaying == true)
-                audioSource.Stop();
-            anim.SetBool("isGrounded", IsGrounded); }
+            if (audioSource != null)
+            {
+                if (value == false && audioSource.isPlaying == true)
+                    audioSource.Stop(); 
+                anim.SetBool("isGrounded", IsGrounded); }
+            }
+           
     }// 바닥 충돌 여부
     private Vector2 FootPosition;                   // 발 위치
 
@@ -155,8 +159,12 @@ public class PlayerMovment : MonoBehaviour
         else
         {
             anim.SetBool("isWalking", false);
-            if(audioSource.isPlaying == true)
-                audioSource.Stop();
+            if (audioSource != null)
+            {
+                if(audioSource.isPlaying == true)
+                    audioSource.Stop();                
+            }
+
         }
 
         rigid.velocity = new Vector2(h * MaxSpeed, rigid.velocity.y);
