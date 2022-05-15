@@ -511,5 +511,7 @@ public class PlayerMovment : MonoBehaviour
         anim.SetLayerWeight(3, 0);
         anim.SetLayerWeight(4, 0);
         anim.SetLayerWeight(5, 1);
+
+        OpenDieUI.instance.start();
     }
 }
