@@ -29,6 +29,9 @@ public class FlyEnemy : MonoBehaviour
     public Transform Pos1;
     public float CircleSize1;
 
+    Animator anim;              // 플레이어 애니메이션
+    SpriteRenderer renderer;    // 플레이어 이미지 좌우반전
+
     FlyEnemy enemy;
     Rigidbody2D rigid;
 
@@ -40,6 +43,9 @@ public class FlyEnemy : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+
+        anim = GetComponent<Animator>();
+        renderer = GetComponent<SpriteRenderer>();
 
         Invoke("Think", 5);
     }
@@ -112,6 +118,15 @@ public class FlyEnemy : MonoBehaviour
             NextMove *= -1;
             CancelInvoke();
             Invoke("Think", 5);
+        }
+
+        if (NextMove == -1)
+        {
+            renderer.flipX = true;
+        }
+        else
+        {
+            renderer.flipX = false;
         }
     }
 
