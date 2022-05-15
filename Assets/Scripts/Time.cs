@@ -24,7 +24,7 @@ public class Time : MonoBehaviour
         timer1 += UnityEngine.Time.deltaTime;
         timer2 += UnityEngine.Time.deltaTime;
 
-        if (timer1 >= 0.033)
+        if (timer1 >= 0.333)
         {
             minute += 1;
             timer1 = 0;
