@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GroundEnemy : MonoBehaviour
 {
+    Animator anim;
+
     private int CurEnemyHp = 25;      // 적 현재 Hp
     private int MaxEnemyHp = 25;      // 적 최대 HP
     private int EnemyAttack = 15;     // 적 공격력
@@ -33,6 +35,7 @@ public class GroundEnemy : MonoBehaviour
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         enemy = GetComponent<GroundEnemy>();
     }
 
@@ -120,16 +123,20 @@ public class GroundEnemy : MonoBehaviour
     {
         CancelInvoke();
 
+        anim.SetBool("OnAtk", true);
+
         EnemySpeed = 7;
         RushStart = true;
 
         if (Direction == true)
         {
             NextMove = -1;
+            GetComponent<SpriteRenderer>().flipX = true;
         }
         else if (Direction == false)
         {
             NextMove = 1;
+            GetComponent<SpriteRenderer>().flipX = false;
         }
     }
     
@@ -157,6 +164,9 @@ public class GroundEnemy : MonoBehaviour
     void AttackRest()
     {
         Debug.Log("브레이크");
+
+        anim.SetBool("OnAtk", false);
+
         NextMove = 0;
         EnemySpeed = 2;
         CurRushtime = 0;
@@ -165,12 +175,12 @@ public class GroundEnemy : MonoBehaviour
         Invoke("Think", 5);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(Pos1.position, BoxSize1);
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireCube(Pos1.position, BoxSize1);
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(Pos2.position, BoxSize2);
-    }
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawWireCube(Pos2.position, BoxSize2);
+    //}
 }
