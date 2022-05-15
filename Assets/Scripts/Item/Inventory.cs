@@ -26,6 +26,9 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
+    AudioSource audioSource;
+    public AudioClip getItemSound;
+
     public delegate void OnChangeItem();
     public OnChangeItem onChangeItem;
 
@@ -39,6 +42,8 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         instance.onCreate = false;
         invenUI = InventoryUI.instance;
 
@@ -111,6 +116,13 @@ public class Inventory : MonoBehaviour
                 {
                     PlayerMovment.instance.HoldingPail();
                 }
+                else if (_item.name == "Club" && highlightSlotIdx == i)
+                {
+                    PlayerMovment.instance.HoldingClub();
+                }
+
+                audioSource.PlayOneShot(getItemSound, 0.1f);
+
                 return true;
             }
             else if(slots[i].item.name == _item.name)
@@ -122,6 +134,8 @@ public class Inventory : MonoBehaviour
 
                     if(onChangeItem != null)
                         onChangeItem.Invoke();
+
+                    audioSource.PlayOneShot(getItemSound, 0.1f);
                     return true;
                 }
             }
@@ -138,6 +152,8 @@ public class Inventory : MonoBehaviour
             slots[idx].stack++;
 
             onChangeItem.Invoke();
+
+            audioSource.PlayOneShot(getItemSound, 0.1f);
 
             return true;
         }

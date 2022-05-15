@@ -11,6 +11,18 @@ public class PlayerHungergauge : MonoBehaviour
     public static float CurHunger;             // 현재 허기 게이지
     private float MaxHunger = 100;      // 최대 허기 게이지
 
+    public static PlayerHungergauge instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
+
     void Start()
     {
         CurHunger = MaxHunger;
@@ -32,4 +44,11 @@ public class PlayerHungergauge : MonoBehaviour
         Hunger.fillAmount = CurHunger / MaxHunger;
         Gauge.text = CurHunger.ToString();
     }
+
+    public void Eat(int value)
+    {
+        CurHunger += value;
+
+        if (CurHunger > MaxHunger) CurHunger = MaxHunger;
+    }    
 }

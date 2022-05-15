@@ -12,6 +12,17 @@ public class PlayerHp : MonoBehaviour
 
     GroundEnemy gde = new GroundEnemy();
 
+    public static PlayerHp instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
     void Start()
     {
         CurHp = MaxHp;
@@ -31,5 +42,12 @@ public class PlayerHp : MonoBehaviour
 
         HpBar.value = CurHp;
         HpText.text = CurHp.ToString() + " / " + MaxHp.ToString();
+    }
+
+    public void Heal(int value)
+    {
+        CurHp += value;
+
+        if (CurHp > 100) CurHp = MaxHp;
     }
 }

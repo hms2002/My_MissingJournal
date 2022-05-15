@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Tree : MonoBehaviour
 {
+    AudioSource audioSource;
+
     public Button btn;
     public Image coolTimeImg;
     public Slider fellSlider;
@@ -20,6 +22,9 @@ public class Tree : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Stop();
+
         waitTime = 5f;
 
         fellSlider.gameObject.SetActive(false);
@@ -35,11 +40,15 @@ public class Tree : MonoBehaviour
         // 나무 캐기 쿨타임
         if(onFalling)
         {
+            if(audioSource.isPlaying == false)
+                audioSource.Play();
+
             x = Input.GetAxisRaw("Horizontal");
 
             // 캐는 도중에 입력받으면 실행
             if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || x != 0 || Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Alpha6))
             {
+                audioSource.Stop();
                 PlayerMovment.instance.StopFelling();
 
                 onFalling = false;
@@ -71,6 +80,7 @@ public class Tree : MonoBehaviour
             // 나무 캐기 끝났을 때
             if(curTime >= fellingTime)
             {
+                audioSource.Stop();
                 PlayerMovment.instance.StopFelling();
                 onFalling = false;
                 curTime = 0;
@@ -108,8 +118,8 @@ public class Tree : MonoBehaviour
 
         Inventory inven = Inventory.instance;
 
-        if (inven.slots[inven.highlightSlotIdx].item == null) return;
-        if (inven.slots[inven.highlightSlotIdx].item.name == "FullPail")
+        if (inven.slots[inven.highlightSlotIdx].item == null) ;
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "FullPail")
         {
             inven.slots[inven.highlightSlotIdx].RemoveSlot();
             inven.AddItem(ItemDatabase.instance.itemDB[(int)ItemList.Pail], inven.highlightSlotIdx);
@@ -124,10 +134,17 @@ public class Tree : MonoBehaviour
         onFalling = true;
         fellSlider.gameObject.SetActive(true);
 
-        if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
+        if (inven.slots[inven.highlightSlotIdx].item == null) ;
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
+        {
             fellingTime = 10;
+            audioSource.pitch = 2;
+        }
         else
+        {
+            audioSource.pitch = 1;
             fellingTime = 15;
+        }
 
         fellSlider.maxValue = fellingTime;
         

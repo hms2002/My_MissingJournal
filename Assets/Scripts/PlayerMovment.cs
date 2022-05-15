@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
 {
+    AudioSource audioSource;
+
+    public AudioClip caveWalkSound;
+    public AudioClip forestWalkSound;
+    public AudioClip beachWalkSound;
+
     public static PlayerMovment instance;
 
     Animator anim;              // 플레이어 애니메이션
@@ -14,17 +20,45 @@ public class PlayerMovment : MonoBehaviour
 
     public float JumpHeight;        // 점프 높이
     private bool LongJump = false;  // 낮은 점프, 높은 점프
-    private bool canJump;
+    private bool CanJump;
+    public bool canJump
+    {
+        get { return CanJump; }
+        set {
+            Debug.Log("값 : " + value);
+            CanJump = value; }
+    }
 
-    public LayerMask Ground;                       // 바닥 레이어
+    int Ground;                       // 바닥 레이어
+    int CaveGround;
+    int ForestGround;
+    int BeachGround;
+
     private CapsuleCollider2D capsuleCollider2D;    // 오브젝트 충돌 범위 컴포넌트
-    private bool isGrounded;                        // 바닥 충돌 여부
+    private bool IsGrounded;
+    public bool isGrounded
+    {
+        get { return IsGrounded; }
+        set {
+            IsGrounded = value;
+            if (value == false && audioSource.isPlaying == true)
+                audioSource.Stop();
+            anim.SetBool("isGrounded", IsGrounded); }
+    }// 바닥 충돌 여부
     private Vector2 FootPosition;                   // 발 위치
 
     Rigidbody2D rigid;
 
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+
+        Ground = ((1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("CaveGround")) | (1 << LayerMask.NameToLayer("ForestGround")) | (1 << LayerMask.NameToLayer("BeachGround")));
+
+        CaveGround = (1 << LayerMask.NameToLayer("CaveGround"));
+        ForestGround = (1 << LayerMask.NameToLayer("ForestGround"));
+        BeachGround = (1 << LayerMask.NameToLayer("BeachGround"));
+
         if (instance != null)
         {
             Destroy(gameObject);
@@ -77,6 +111,38 @@ public class PlayerMovment : MonoBehaviour
         {
             anim.SetBool("isWalking", true);
 
+
+            if (Physics2D.OverlapCircle(FootPosition, 0.1f, CaveGround))
+            {
+                audioSource.pitch = 2;
+                audioSource.clip = caveWalkSound;
+                audioSource.volume = 0.3f;
+                if (audioSource.isPlaying == false)
+                {
+                    audioSource.Play();
+                }
+            }
+            else if (Physics2D.OverlapCircle(FootPosition, 0.1f, ForestGround))
+            {
+                audioSource.pitch = 2;
+                audioSource.volume = 0.3f;
+                audioSource.clip = forestWalkSound;
+                if (audioSource.isPlaying == false)
+                {
+                    audioSource.Play();
+                }
+            }
+            else if (Physics2D.OverlapCircle(FootPosition, 0.1f, BeachGround))
+            {
+                audioSource.pitch = 2;
+                audioSource.volume = 0.3f;
+                audioSource.clip = beachWalkSound;
+                if (audioSource.isPlaying == false)
+                {
+                    audioSource.Play();
+                }
+            }
+
             if (h > 0)
             {
                 renderer.flipX = true;
@@ -89,7 +155,8 @@ public class PlayerMovment : MonoBehaviour
         else
         {
             anim.SetBool("isWalking", false);
-
+            if(audioSource.isPlaying == true)
+                audioSource.Stop();
         }
 
         rigid.velocity = new Vector2(h * MaxSpeed, rigid.velocity.y);
@@ -98,6 +165,7 @@ public class PlayerMovment : MonoBehaviour
     private void Jump()
     {
         if (!canJump) return;
+        
 
 
         if (Input.GetKey(KeyCode.Space))
@@ -118,12 +186,25 @@ public class PlayerMovment : MonoBehaviour
     public void Felling()
     {
         Inventory inven = Inventory.instance;
-        if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
+
+        if (inven.slots[inven.highlightSlotIdx].item == null)
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+            anim.SetBool("isHandling", true);
+            anim.SetTrigger("isOnce");
+            return;
+        }
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
         {
             anim.SetLayerWeight(0, 0);
             anim.SetLayerWeight(1, 1);
             anim.SetLayerWeight(2, 0);
             anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
         }
         else
         {
@@ -131,6 +212,7 @@ public class PlayerMovment : MonoBehaviour
             anim.SetLayerWeight(1, 0);
             anim.SetLayerWeight(2, 0);
             anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
             anim.SetBool("isHandling", true);
             anim.SetTrigger("isOnce");
         }
@@ -139,12 +221,24 @@ public class PlayerMovment : MonoBehaviour
     public void StopFelling()
     {
         Inventory inven = Inventory.instance;
-        if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
+
+        if (inven.slots[inven.highlightSlotIdx].item == null)
         {
             anim.SetLayerWeight(0, 1);
             anim.SetLayerWeight(1, 0);
             anim.SetLayerWeight(2, 0);
             anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+            anim.SetBool("isHandling", false);
+            return;
+        }
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
         }
         else if(inven.slots[inven.highlightSlotIdx].item.name == "Pail")
         {
@@ -152,8 +246,21 @@ public class PlayerMovment : MonoBehaviour
             anim.SetLayerWeight(1, 0);
             anim.SetLayerWeight(2, 0);
             anim.SetLayerWeight(3, 1);
+            anim.SetLayerWeight(4, 0);
             anim.SetBool("isHandling", false);
-            anim.SetTrigger("isOnce");
+        }
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "Club")
+        {
+
+        }
+        else
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+            anim.SetBool("isHandling", false);
         }
     }
 
@@ -162,12 +269,24 @@ public class PlayerMovment : MonoBehaviour
     {
         Inventory inven = Inventory.instance;
 
-        if (inven.slots[inven.highlightSlotIdx].item.name == "Pick")
+        if (inven.slots[inven.highlightSlotIdx].item == null)
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+            anim.SetBool("isHandling", true);
+            anim.SetTrigger("isOnce");
+            return;
+        }
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "Pick")
         {
             anim.SetLayerWeight(0, 0);
             anim.SetLayerWeight(1, 0);
             anim.SetLayerWeight(2, 1);
             anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
         }
         else
         {
@@ -175,6 +294,7 @@ public class PlayerMovment : MonoBehaviour
             anim.SetLayerWeight(1, 0);
             anim.SetLayerWeight(2, 0);
             anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
             anim.SetBool("isHandling", true);
             anim.SetTrigger("isOnce");
         }
@@ -185,12 +305,24 @@ public class PlayerMovment : MonoBehaviour
     {
         Inventory inven = Inventory.instance;
 
+        if (inven.slots[inven.highlightSlotIdx].item == null)
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+            anim.SetBool("isHandling", false);
+            return;
+        }
+
         if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
         {
             anim.SetLayerWeight(0, 1);
             anim.SetLayerWeight(1, 0);
             anim.SetLayerWeight(2, 0);
             anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
         }
         else if (inven.slots[inven.highlightSlotIdx].item.name == "Pail")
         {
@@ -198,8 +330,25 @@ public class PlayerMovment : MonoBehaviour
             anim.SetLayerWeight(1, 0);
             anim.SetLayerWeight(2, 0);
             anim.SetLayerWeight(3, 1);
+            anim.SetLayerWeight(4, 0);
             anim.SetBool("isHandling", false);
-            anim.SetTrigger("isOnce");
+        }
+        else if(inven.slots[inven.highlightSlotIdx].item.name == "Club")
+        {
+            anim.SetLayerWeight(0, 0);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 1);
+        }
+        else
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+            anim.SetBool("isHandling", false);
         }
     }
 
@@ -209,20 +358,123 @@ public class PlayerMovment : MonoBehaviour
         anim.SetLayerWeight(1, 0);
         anim.SetLayerWeight(2, 0);
         anim.SetLayerWeight(3, 1);
+        anim.SetLayerWeight(4, 0);
     }
 
     public void StopHoldingPail()
     {
-        anim.SetLayerWeight(0, 1);
+        Inventory inven = Inventory.instance;
+
+        if (inven.slots[inven.highlightSlotIdx].item == null)
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+            return;
+        }
+
+        anim.SetBool("isHandling", false);
+
+        if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+        }
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "Pail")
+        {
+            anim.SetLayerWeight(0, 0);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 1);
+            anim.SetLayerWeight(4, 0);
+            anim.SetBool("isHandling", false);
+        }
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "Club")
+        {
+            anim.SetLayerWeight(0, 0);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 1);
+        }
+        else
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+        }
+    }
+
+    public void HoldingClub()
+    {
+        anim.SetLayerWeight(0, 0);
         anim.SetLayerWeight(1, 0);
         anim.SetLayerWeight(2, 0);
         anim.SetLayerWeight(3, 0);
+        anim.SetLayerWeight(4, 1);
     }
 
+    public void StopHoldingClub()
+    {
+        Inventory inven = Inventory.instance;
+
+        if (inven.slots[inven.highlightSlotIdx].item == null)
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+            return;
+        }
+
+        anim.SetBool("isHandling", false);
+
+        if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+        }
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "Pail")
+        {
+            anim.SetLayerWeight(0, 0);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 1);
+            anim.SetLayerWeight(4, 0);
+            anim.SetBool("isHandling", false);
+        }
+        else if (inven.slots[inven.highlightSlotIdx].item.name == "Club")
+        {
+            anim.SetLayerWeight(0, 0);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 1);
+        }
+        else
+        {
+            anim.SetLayerWeight(0, 1);
+            anim.SetLayerWeight(1, 0);
+            anim.SetLayerWeight(2, 0);
+            anim.SetLayerWeight(3, 0);
+            anim.SetLayerWeight(4, 0);
+        }
+    }
     public void PlayerFree()
     {
         canMove = true;
-        canMove = true;
+        canJump = true;
     }
 
     public void PlayerConfine()
