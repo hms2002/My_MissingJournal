@@ -11805,7 +11805,7 @@ MonoBehaviour:
   forestWalkSound: {fileID: 8300000, guid: ac3a8af9e4c12b04da9ecc2df6716a1b, type: 3}
   beachWalkSound: {fileID: 8300000, guid: 45e1fa3f9a15be8478dc11bb358592b9, type: 3}
   MaxSpeed: 5.05
-  JumpHeight: 6.27
+  JumpHeight: 4.91
 --- !u!212 &1682219778
 SpriteRenderer:
   m_ObjectHideFlags: 0
