@@ -10,7 +10,6 @@ public class Bullet : MonoBehaviour
     public float distance;
 
     public LayerMask isLayer;
-    public Transform Pos;
 
     void Start()
     {
@@ -29,7 +28,7 @@ public class Bullet : MonoBehaviour
             DestroyBullet();
         }
 
-        transform.Translate(transform.right * -1f * Speed * UnityEngine.Time.deltaTime);
+        transform.Translate(Vector2.up * Speed * UnityEngine.Time.deltaTime);
     }
 
     void DestroyBullet()

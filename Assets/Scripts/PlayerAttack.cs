@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
     public float CoolTime = 0.5f;
 
     public Transform Pos;
+    public Transform Axis;
     public Vector2 BoxSize;
 
     Rigidbody2D rigid;
@@ -22,6 +23,16 @@ public class PlayerAttack : MonoBehaviour
     
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Axis.localEulerAngles = new Vector3(0, 180, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Axis.localEulerAngles = new Vector3(0, 0, 0);
+        }
+
         if ( CurTime <= 0 )
         {
             if ( Input.GetKey(KeyCode.Z) )

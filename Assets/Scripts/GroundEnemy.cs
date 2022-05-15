@@ -8,14 +8,20 @@ public class GroundEnemy : MonoBehaviour
     private int MaxEnemyHp = 25;      // 적 최대 HP
     private int EnemyAttack = 15;     // 적 공격력
     public float AttackRange;         // 적 공격 범위
-    public float AttackCoolTime;         // 적 공격 속도 (몇 초 마다 공격 하는지)
-    public float AttackCurTime;         // 적 공격 딜레이
+    public float AttackCoolTime;      // 적 공격 속도 (몇 초 마다 공격 하는지)
+    public float AttackCurTime;       // 적 공격 딜레이
     public float EnemySpeed;          // 적 속도
     public float FieldOfVision;       // 적 시야 범위
+    public float CurRushtime = 0;          // 플레이어 미탐지 시간
+    public float MaxRushtime = 0;
+    private bool Direction = false;
 
-    public int NextMove;              // 적 AI 행동 패턴
+    public int NextMove;              // 다음 이동
 
     public Transform player;          // 플레이어 트랜스폼
+    public Transform Pos;
+    public Vector2 BoxSize;
+    public Transform Axis;
 
     GroundEnemy enemy;
 
@@ -49,20 +55,41 @@ public class GroundEnemy : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        if ( AttackCurTime == 0 && distance <= enemy.FieldOfVision )
+        if ( AttackCurTime == 0 )
         {
-            FacePlayer();
-
-            if ( distance <= AttackRange )
+            Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Pos.position, BoxSize, 0);
+            foreach (Collider2D collider in collider2Ds)
             {
-                AttackPlayer();
+                if (collider.tag == "Player")
+                {
+                    Debug.Log("사람 발견");    
+                    Direction = true;
+                    RushEnemy();
+                }
             }
+        }
+
+        if (CurRushtime >= MaxRushtime)
+        {
+            Invoke("Think", 5);
+            CurRushtime = 0;
+        }
+
+        if (NextMove == -1)
+        {
+            Direction = true;
+            Axis.localEulerAngles = new Vector3(0, 180, 0);
+        }
+        else if (NextMove == 1)
+        {
+            Direction = false;
+            Axis.localEulerAngles = new Vector3(0, 0, 0);
         }
     }
 
     void FixedUpdate()
     {
-        rigid.velocity = new Vector2(NextMove, rigid.velocity.y);
+        rigid.velocity = new Vector2(NextMove * EnemySpeed, rigid.velocity.y);
 
         Vector2 frontVec = new Vector2(rigid.position.x + NextMove*0.4f, rigid.position.y);
         Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
@@ -83,31 +110,45 @@ public class GroundEnemy : MonoBehaviour
         Invoke("Think", nextThinkTime);
     }
 
-    void FacePlayer()
-    {
-        if ( player.position.x - transform.position.x < 0 )
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-    }
-
     public void TakeDamage(int Attack)
     {
         Debug.Log("Hit");
         CurEnemyHp -= Attack;
     }
+
+    public void RushEnemy()
+    {
+        CancelInvoke();
+        EnemySpeed = 6;
+        CurRushtime += UnityEngine.Time.deltaTime;
+
+        if (player.position.x - transform.position.x < 0)
+        {
+            Direction = false;
+            NextMove = -1;
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            Direction = true;
+            NextMove = 1;
+            transform.localScale = new Vector3(1, 1, 1);
+        }        
+    }
     
     public void AttackPlayer()
     {
-        CancelInvoke();
+
 
         PlayerHp.CurHp -= EnemyAttack;
         // 적 공격 애니메이션
         AttackCurTime = AttackCoolTime;
         EnemySpeed = 2;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(Pos.position, BoxSize);
     }
 }

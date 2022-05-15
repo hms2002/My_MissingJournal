@@ -8,7 +8,6 @@ public class Time : MonoBehaviour
 {
     public Text Clock;                // 시계
     public Text Today;                // 생존 일자
-    public Text test1;
 
     private int hour = 8;            // 시
     private int minute = 0;          // 분
@@ -16,16 +15,25 @@ public class Time : MonoBehaviour
     private bool twelve = false;     // 정오 자정 구분
     private int day = 1;             // 일
     private string state = "AM";     // 오전 오후
-    private float timer = 0;         // 게임 시간을 계산을위한 타이머
+    private float timer1 = 0;         // 게임 시간을 계산을위한 타이머
+    private float timer2 = 0;         // 게임 시간을 계산을위한 타이머
 
     void Update()
     { 
-        timer += Mathf.Floor(UnityEngine.Time.deltaTime * 1000) / 1000;
+        timer1 += UnityEngine.Time.deltaTime;
+        timer2 += UnityEngine.Time.deltaTime;
 
-        if (timer % 0.033== 0)
+        if (timer1 >= 0.333)
         {
             minute += 1;
-            timer = 0;
+            timer1 = 0;
+        }
+
+        if (timer2 >= 40)
+        {
+            PlayerHungergauge.CurHunger -= 10;
+            PlayerThirstgauge.CurThirst -= 10;
+            timer2 = 0;
         }
 
         if ( minute == 60 )
@@ -53,7 +61,6 @@ public class Time : MonoBehaviour
             twelve = true;
         }
 
-        test1.text = timer.ToString();
         Today.text = day.ToString() + "일차";
 
         Clock.text = state + " " + hour.ToString("D2") + " : " + minute.ToString("D2");
