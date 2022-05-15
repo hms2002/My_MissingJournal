@@ -2026,7 +2026,7 @@ GameObject:
   - component: {fileID: 1991779839}
   - component: {fileID: 1991779838}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Sky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2457,6 +2457,7 @@ MonoBehaviour:
   beachWalkSound: {fileID: 8300000, guid: 45e1fa3f9a15be8478dc11bb358592b9, type: 3}
   MaxSpeed: 7
   JumpHeight: 5
+  isCaveGround: 0
 --- !u!70 &2892885718932110905
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

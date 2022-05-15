@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Time : MonoBehaviour
 {
@@ -61,17 +62,22 @@ public class Time : MonoBehaviour
             twelve = true;
         }
 
+        if (day == 3 && hour == 10)
+        {
+            SceneManager.LoadScene("Ending");
+        }
+
         Today.text = day.ToString() + "일차";
 
         Clock.text = state + " " + hour.ToString("D2") + " : " + minute.ToString("D2");
 
         if ((state == "PM" && hour >= 6) || (state == "AM" && hour <= 5))
         {
-            GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(1);
+            //GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(1);
         }
         else
         {
-            GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(0);
+            //GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(0);
         }
     }
 }
