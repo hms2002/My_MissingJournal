@@ -87,7 +87,6 @@ public class Slot : MonoBehaviour
         }
         if (stack < 1)
         {
-            Debug.Log("»è-Á¦");
             RemoveSlot();
             Inventory.instance.onChangeItem.Invoke();
         }
@@ -97,6 +96,7 @@ public class Slot : MonoBehaviour
     {
         item = null;
         isEmpty = true;
+        stack = 0;
     }
 
     public void UpdataSlotUI()
