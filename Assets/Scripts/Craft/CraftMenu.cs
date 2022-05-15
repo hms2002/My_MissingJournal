@@ -21,6 +21,8 @@ public class CraftMenu : MonoBehaviour
     {
         int woodCnt = 0, stoneCnt = 0;
 
+        Debug.Log(inven.slots);
+
         foreach(Slot slot in inven.slots)
         {
             if (slot.isEmpty)
@@ -31,7 +33,7 @@ public class CraftMenu : MonoBehaviour
                 {
                     woodCnt += slot.stack;
                 }
-                else
+                else if (slot.item.name == "Stone")
                 {
                     stoneCnt += slot.stack;
                 }

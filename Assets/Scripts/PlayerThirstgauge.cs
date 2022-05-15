@@ -38,6 +38,7 @@ public class PlayerThirstgauge : MonoBehaviour
 
         if ( CurThirst < 0 )              // 갈증 음수 방지
         {
+            PlayerHp.instance.Heal(-10);
             CurThirst = 0;
         } 
 

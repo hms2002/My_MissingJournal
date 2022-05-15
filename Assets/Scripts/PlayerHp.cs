@@ -38,6 +38,7 @@ public class PlayerHp : MonoBehaviour
         if ( CurHp < 0 )              // HP 음수 방지
         {
             CurHp = 0;
+            PlayerMovment.instance.PlayerDie();
         }   
 
         HpBar.value = CurHp;

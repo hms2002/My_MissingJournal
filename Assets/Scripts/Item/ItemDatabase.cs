@@ -20,7 +20,10 @@ public enum ItemList
     Pail,           // 양동이
     FullPail,       // 가득 찬 양동이
     WaterPurifier,  // 정수기
-    Bonfire         // 모닥불
+    Bonfire,        // 모닥불
+    RawMeat,        // 생고기
+    Meat,           // 구운고기
+    Hint
 }
 
 public class ItemDatabase : MonoBehaviour
@@ -40,6 +43,10 @@ public class ItemDatabase : MonoBehaviour
     private void Start()
     {
         GameObject go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
+        go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Branch]);
+        go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
+        go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Branch]);
+        go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
         go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Branch]);
         go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
         go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Branch]);
