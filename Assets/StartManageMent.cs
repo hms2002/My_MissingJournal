@@ -40,15 +40,18 @@ public class StartManageMent : MonoBehaviour
     };
 
 
+    bool isOnce = true;
     private void Start()
     {
+        isOnce = true;
         TextCanvas.SetActive(false);
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) && isOnce == true)
         {
+            isOnce = false;
             StartCoroutine("WhatStory");
         }
     }

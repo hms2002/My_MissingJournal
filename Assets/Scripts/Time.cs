@@ -19,6 +19,13 @@ public class Time : MonoBehaviour
     private float timer1 = 0;         // 게임 시간을 계산을위한 타이머
     private float timer2 = 0;         // 게임 시간을 계산을위한 타이머
 
+    Vector3 cavePos;
+
+    private void Start()
+    {
+        cavePos = PlayerMovment.instance.gameObject.transform.position;
+    }
+
     void Update()
     { 
         timer1 += UnityEngine.Time.deltaTime;
@@ -71,6 +78,14 @@ public class Time : MonoBehaviour
 
         Clock.text = state + " " + hour.ToString("D2") + " : " + minute.ToString("D2");
 
+        if(hour == 20)
+        {
+            day++;
+            hour = 8;
+            state = "AM";
+
+            PlayerMovment.instance.gameObject.transform.position = cavePos;
+        }
         if ((state == "PM" && hour >= 6) || (state == "AM" && hour <= 5))
         {
             //GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(1);

@@ -42,22 +42,7 @@ public class ItemDatabase : MonoBehaviour
 
     private void Start()
     {
-        GameObject go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
-        go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Branch]);
-        go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
-        go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Branch]);
-        go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
-        go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Branch]);
-        go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
-        go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Branch]);
-        go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
-        go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Branch]);
-        go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
-        go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Stone]);
-        go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
-        go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Stone]);
-        go = Instantiate(fieldItemPrefab, new Vector3(1, 2, 0), Quaternion.identity);
-        go.GetComponent<FieldItems>().SetItem(itemDB[(int)ItemList.Stone]);
+       
     }
 
     public List<Item> itemDB = new List<Item>();
