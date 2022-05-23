@@ -54,6 +54,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if ( Input.GetKey(KeyCode.Mouse0) )
             {
+
                 anim.SetTrigger("Attack");
 
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(Pos.position, BoxSize, 0);
@@ -61,10 +62,12 @@ public class PlayerAttack : MonoBehaviour
                 {
                     if ( collider.tag == "GroundEnemy" )
                     {
+                        inven.slots[inven.highlightSlotIdx].UseSlot();
                         collider.GetComponent<GroundEnemy>().TakeDamage(Attack);
                     }
                     else if ( collider.tag == "FlyEnemy" )
                     {
+                        inven.slots[inven.highlightSlotIdx].UseSlot();
                         collider.GetComponent<FlyEnemy>().TakeDamage(Attack);
                     }
                 }

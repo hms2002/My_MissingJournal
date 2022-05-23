@@ -33,8 +33,14 @@ public class GroundEnemy : MonoBehaviour
 
     Rigidbody2D rigid;
 
+    PlayerMovment playerMovement;
+    Rigidbody2D playerRigid;
+
     void Start()
     {
+        playerMovement = FindObjectOfType<PlayerMovment>();
+        playerRigid = playerMovement.GetComponent<Rigidbody2D>();
+
         anim = GetComponent<Animator>();
         enemy = GetComponent<GroundEnemy>();
     }
@@ -100,6 +106,11 @@ public class GroundEnemy : MonoBehaviour
     {
         rigid.velocity = new Vector2(NextMove * EnemySpeed, rigid.velocity.y);
 
+        if(rigid.velocity.x < 0)
+            GetComponent<SpriteRenderer>().flipX = true;
+        else
+            GetComponent<SpriteRenderer>().flipX = false;
+
         Vector2 frontVec = new Vector2(rigid.position.x + NextMove*0.4f, rigid.position.y);
         Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
         RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("ForestGround"));
@@ -131,12 +142,12 @@ public class GroundEnemy : MonoBehaviour
         if (Direction == true)
         {
             NextMove = -1;
-            GetComponent<SpriteRenderer>().flipX = true;
+//            GetComponent<SpriteRenderer>().flipX = true;
         }
         else if (Direction == false)
         {
             NextMove = 1;
-            GetComponent<SpriteRenderer>().flipX = false;
+ //           GetComponent<SpriteRenderer>().flipX = false;
         }
     }
     
@@ -157,6 +168,7 @@ public class GroundEnemy : MonoBehaviour
 
     public void AttackPlayer()
     {
+        playerMovement.Hit(transform.position.x < playerMovement.transform.position.x);
         PlayerHp.CurHp -= EnemyAttack;
         AttackRest();
     }

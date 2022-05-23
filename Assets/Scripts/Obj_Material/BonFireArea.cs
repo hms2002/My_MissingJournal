@@ -48,8 +48,6 @@ public class BonFireArea : MonoBehaviour
                 }
             }
 
-            Debug.Log("나무 : " + woodCnt + " 돌 : " + stoneCnt);
-            Debug.Log("나무 : " + needWoodCnt + " 돌 : " + needStoneCnt);
             if (woodCnt >= needWoodCnt && stoneCnt >= needStoneCnt)
             {
                 Debug.Log("Hello");

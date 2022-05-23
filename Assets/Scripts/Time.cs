@@ -27,7 +27,7 @@ public class Time : MonoBehaviour
     }
 
     void Update()
-    { 
+    {
         timer1 += UnityEngine.Time.deltaTime;
         timer2 += UnityEngine.Time.deltaTime;
 
@@ -55,13 +55,15 @@ public class Time : MonoBehaviour
             afternoon = true;
             state = "PM";
         }
-        else if ( hour == 12 && twelve == true && afternoon == true )
+        else if ( hour == 10 && twelve == true && afternoon == true )
         {
-            hour = 0;
+            hour = 8;
             day += 1;
             afternoon = false;
             twelve = false;
             state = "AM";
+
+            PlayerMovment.instance.gameObject.transform.position = cavePos;
         }
         else if ( hour == 13 )
         {
@@ -78,14 +80,6 @@ public class Time : MonoBehaviour
 
         Clock.text = state + " " + hour.ToString("D2") + " : " + minute.ToString("D2");
 
-        if(hour == 20)
-        {
-            day++;
-            hour = 8;
-            state = "AM";
-
-            PlayerMovment.instance.gameObject.transform.position = cavePos;
-        }
         if ((state == "PM" && hour >= 6) || (state == "AM" && hour <= 5))
         {
             //GameObject.Find("SoundManager").GetComponent<SoundManager>().MainBGM(1);

@@ -12,6 +12,7 @@ public class Tree : MonoBehaviour
     public Slider fellSlider;
 
     Inventory inven;
+    Rigidbody2D playerRigid;
     
     public float waitTime = 5;
     public float fellingTime;
@@ -22,6 +23,8 @@ public class Tree : MonoBehaviour
 
     private void Start()
     {
+        playerRigid = FindObjectOfType<PlayerMovment>().GetComponent<Rigidbody2D>();
+
         audioSource = GetComponent<AudioSource>();
         audioSource.Stop();
 
@@ -46,7 +49,7 @@ public class Tree : MonoBehaviour
             x = Input.GetAxisRaw("Horizontal");
 
             // 캐는 도중에 입력받으면 실행
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || x != 0 || Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Alpha6))
+            if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || x != 0 || Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Alpha6) || playerRigid.velocity.x != 0)
             {
                 audioSource.Stop();
                 PlayerMovment.instance.StopFelling();
@@ -154,8 +157,9 @@ public class Tree : MonoBehaviour
     public void DropItem()
     {
         ItemDatabase.instance.DropItem((int)ItemList.Branch, transform.position);
+        ItemDatabase.instance.DropItem((int)ItemList.Branch, transform.position);
 
-        switch(Random.Range(0, 2))
+        switch (Random.Range(0, 2))
         {
             case 0:
                 break;

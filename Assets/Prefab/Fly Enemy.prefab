@@ -253,7 +253,7 @@ MonoBehaviour:
   BatCry: {fileID: 8300000, guid: 7768e7d63bae2794ca08f59f689ee1f9, type: 3}
   BatAttack: {fileID: 8300000, guid: 860490b4d2d3e024e951c0d6bfe5edde, type: 3}
   AttackRange: 5
-  AttackCoolTime: 7
+  AttackCoolTime: 5
   AttackCurTime: 0
   EnemySpeed: 3
   FieldOfVision: 6
@@ -416,7 +416,7 @@ Animator:
   m_GameObject: {fileID: 9172094636541632145}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 27e7c41a3edcbee43bee31047219286d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0fabb4c0d3a19e748b86265af96e3099, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1

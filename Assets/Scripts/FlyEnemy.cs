@@ -48,21 +48,18 @@ public class FlyEnemy : MonoBehaviour
     {
         if ( CurEnemyHp <= 0 )
         {
-            Destroy(this.gameObject);
+            ItemDatabase.instance.DropItem((int)ItemList.RawMeat, transform.position);
             GameObject.Find("EnemyManager").GetComponent<EnemyManager>().DeleteEnemy(0);
+            Destroy(this.gameObject);
         }
 
         AttackCurTime -= UnityEngine.Time.deltaTime;
 
-        if ( AttackCurTime < 0 )
-        {
-            AttackCurTime = 0;
-        }
-        
+
         Collider2D[] collider2Ds1 = Physics2D.OverlapCircleAll(Pos1.position, CircleSize1);
         foreach (Collider2D collider in collider2Ds1)
         {
-            if (AttackCurTime == 0 && collider.tag == "Player")
+            if (AttackCurTime <= 0 && collider.tag == "Player")
             {   
                 CancelInvoke();
                 NextMove = 0;
@@ -89,7 +86,6 @@ public class FlyEnemy : MonoBehaviour
             {
                 timer += UnityEngine.Time.deltaTime;            
             }
-            AttackCurTime -= UnityEngine.Time.deltaTime;
         }
 
         if (timer >= 2)

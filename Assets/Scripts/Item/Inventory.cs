@@ -58,6 +58,8 @@ public class Inventory : MonoBehaviour
     public int highlightSlotIdx = 0;
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+            Chuck();
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             highlightSlotIdx = 0;
@@ -155,7 +157,38 @@ public class Inventory : MonoBehaviour
         else return false;
     }
 
+    void Chuck()
+    {
+        if (slots[highlightSlotIdx].item == null)
+            return;
 
+        while(slots[highlightSlotIdx].stack > 0)
+        {
+            slots[highlightSlotIdx].stack--;
+            int count = 0;
+            
+            
+            foreach (Item item in ItemDatabase.instance.itemDB)
+            {
+                if (item.name == slots[highlightSlotIdx].item.name)
+                {
+                    if(item.name == "Club")
+                    {
+                        slots[highlightSlotIdx].transform.GetChild(2).gameObject.SetActive(false);
+                    }
+                    break;
+                }
+                count++;
+            }
+
+            Debug.Log("이게 몇번이여 : " + count);
+            ItemDatabase.instance.DropItem(count, PlayerMovment.instance.transform.position + new Vector3(3, 2));
+            
+        }
+
+        slots[highlightSlotIdx].RemoveSlot();
+        Inventory.instance.onChangeItem.Invoke();
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("FieldItem"))

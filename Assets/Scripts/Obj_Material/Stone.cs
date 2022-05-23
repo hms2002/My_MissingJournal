@@ -127,7 +127,6 @@ public class Stone : MonoBehaviour
 
     public void Picking()
     {
-        Debug.Log("This is");
         if (isWaitingTime == true) return;
 
         Inventory inven = Inventory.instance;
@@ -167,6 +166,7 @@ public class Stone : MonoBehaviour
 
     public void DropItem()
     {
+        ItemDatabase.instance.DropItem((int)ItemList.Stone, transform.position);
         ItemDatabase.instance.DropItem((int)ItemList.Stone, transform.position);
     }
 }

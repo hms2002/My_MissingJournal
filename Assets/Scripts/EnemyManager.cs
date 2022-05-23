@@ -7,10 +7,10 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager instance;
 
     private float CurFE = 0;
-    private float MaxFE = 2;
+    private float MaxFE = 20;
     private bool CreFE = false;
     private float CurGE = 0;
-    private float MaxGE = 2;
+    private float MaxGE = 20;
     private bool CreGE = false;
     float PosX;
     float PosY;
@@ -38,7 +38,7 @@ public class EnemyManager : MonoBehaviour
             CurGE = 0;
         }
 
-        if (CreFE == false && CurFE == 0)
+        if (CreFE == false && CurFE <= 0)
         {
             Vector3 SpawnPos = GetRandomPosition(0);   
 
@@ -46,7 +46,7 @@ public class EnemyManager : MonoBehaviour
             CreFE = true;
         }
 
-        if (CreGE == false && CurGE == 0)
+        if (CreGE == false && CurGE <= 0)
         {
             Vector3 SpawnPos = GetRandomPosition(1);   
 

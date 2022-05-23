@@ -191,6 +191,23 @@ public class PlayerMovment : MonoBehaviour
         }
     }
 
+    public void Hit(bool isRight)
+    {
+        PlayerConfine();
+        if(isRight)
+            rigid.AddForce(new Vector2(300, 40));
+        else
+            rigid.AddForce(new Vector2(-300, 40));
+
+        StartCoroutine(IPlayerFree(0.3f));
+    }
+
+    IEnumerator IPlayerFree(float time)
+    {
+        yield return new WaitForSeconds(time);
+        PlayerFree();
+    }
+
     public void Felling()
     {
         Inventory inven = Inventory.instance;
@@ -230,6 +247,7 @@ public class PlayerMovment : MonoBehaviour
     {
         Inventory inven = Inventory.instance;
 
+        anim.SetBool("isHandling", false);
         if (inven.slots[inven.highlightSlotIdx].item == null)
         {
             anim.SetLayerWeight(0, 1);
@@ -237,7 +255,6 @@ public class PlayerMovment : MonoBehaviour
             anim.SetLayerWeight(2, 0);
             anim.SetLayerWeight(3, 0);
             anim.SetLayerWeight(4, 0);
-            anim.SetBool("isHandling", false);
             return;
         }
         else if (inven.slots[inven.highlightSlotIdx].item.name == "Axe")
@@ -318,6 +335,7 @@ public class PlayerMovment : MonoBehaviour
     {
         Inventory inven = Inventory.instance;
 
+        anim.SetBool("isHandling", false);
         if (inven.slots[inven.highlightSlotIdx].item == null)
         {
             anim.SetLayerWeight(0, 1);

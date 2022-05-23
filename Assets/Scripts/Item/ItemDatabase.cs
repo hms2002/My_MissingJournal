@@ -6,7 +6,8 @@ public enum ItemType
 {
     Material,
     Equipment,
-    Food
+    Food,
+    Building
 }
 
 public enum ItemList
@@ -38,11 +39,6 @@ public class ItemDatabase : MonoBehaviour
             return;
         }
         instance = this;
-    }
-
-    private void Start()
-    {
-       
     }
 
     public List<Item> itemDB = new List<Item>();

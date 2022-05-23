@@ -41,11 +41,13 @@ public class BonFire : MonoBehaviour
         for(int i = 0; i < inven.slots.Length; i++)
         {
             if (inven.slots[i].item == null) continue;
+            
             if(inven.slots[i].item.name == "RawMeat")
             {
-                while(inven.slots[i].item == null)
+                Debug.Log("¤Ç¤Ì¤Á");
+                while(inven.slots[i].item != null)
                 {
-                    inven.slots[i].UseSlot();
+                    Debug.Log(inven.slots[i].UseSlot());
                     ItemDatabase.instance.DropItem((int)ItemList.Meat, transform.position);
                 }
             }

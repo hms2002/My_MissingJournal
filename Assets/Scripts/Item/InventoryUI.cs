@@ -14,7 +14,7 @@ public class InventoryUI : MonoBehaviour
     Image[] images = new Image[MAX_SLOT_SIZE];
     Transform slotMenu;
 
-    int highlightSlotIdx;
+    public int highlightSlotIdx;
     Color defaultColor;
 
     private void Awake()

@@ -71,6 +71,12 @@ public class Slot : MonoBehaviour
                     {
                         stack--;// 스택 빼기
                         Inventory.instance.onChangeItem.Invoke();
+                        if (stack < 1)
+                        {
+                            RemoveSlot();
+                            Inventory.instance.onChangeItem.Invoke();
+                        }
+                        PlayerMovment.instance.StopHoldingClub();
                     }
                     else return false;
                     break;
@@ -82,6 +88,13 @@ public class Slot : MonoBehaviour
                         Inventory.instance.onChangeItem.Invoke();
                     }
                     else return false;
+                    break;
+                case ItemType.Building:
+                    if (item.Use() == true)
+                    {
+                        stack--;// 개수를 하나 뺀다
+                        Inventory.instance.onChangeItem.Invoke();
+                    }
                     break;
             }
         }
@@ -120,12 +133,12 @@ public class Slot : MonoBehaviour
                     break;
                 case ItemType.Equipment:
                     // 아이템이 장착 무기일 때 사용하기
-                    if (item.Use() == true) // 무기가 부서지면
-                    {
-                        stack--;// 스택 빼기
-                        Inventory.instance.onChangeItem.Invoke();
-                    }
-                    else return;
+                    //if (item.Use() == true) // 무기가 부서지면
+                    //{
+                    //    stack--;// 스택 빼기
+                    //    Inventory.instance.onChangeItem.Invoke();
+                    //}
+                    //else return;
                     break;
                 case ItemType.Food:
                     // 먹기에 성공하면
@@ -135,6 +148,13 @@ public class Slot : MonoBehaviour
                         Inventory.instance.onChangeItem.Invoke();
                     }
                     else return;
+                    break;
+                case ItemType.Building:
+                    if (item.Use() == true)
+                    {
+                        stack--;// 개수를 하나 뺀다
+                        Inventory.instance.onChangeItem.Invoke();
+                    }
                     break;
             }
         }
